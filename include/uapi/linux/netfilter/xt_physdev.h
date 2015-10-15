@@ -3,6 +3,7 @@
 
 #include <linux/types.h>
 
+#include <linux/if.h>
 
 #define XT_PHYSDEV_OP_IN		0x01
 #define XT_PHYSDEV_OP_OUT		0x02

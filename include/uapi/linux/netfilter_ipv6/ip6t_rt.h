@@ -3,6 +3,7 @@
 
 #include <linux/types.h>
 /*#include <linux/in6.h>*/
+#include <linux/in6.h>
 
 #define IP6T_RT_HOPS 16
 
