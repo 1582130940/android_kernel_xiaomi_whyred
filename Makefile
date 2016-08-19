@@ -404,16 +404,18 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fivopts -fopenmp -ffast-math \
 		   -fmodulo-sched -fmodulo-sched-allow-regmoves
 
-# Optimization for ARM Cortex A73/Qualcomm Kryo 250/260/280 Gold
+# Optimization for ARM Cortex A73/A53
 KBUILD_CFLAGS += $(call cc-option, -mabi=lp64)
-KBUILD_CFLAGS += $(call cc-option, -march=armv8.2-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
-KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a76.cortex-a55+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
-KBUILD_CFLAGS += $(call cc-option, -mtune=cortex-a76.cortex-a55)
+KBUILD_CFLAGS += $(call cc-option, -march=armv8-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+rcpc+dotprod+aes+sha2+profile)
+KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a73+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
+KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a53+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
+KBUILD_CFLAGS += $(call cc-option, -mtune=cortex-a73.cortex-a53)
 
 KBUILD_AFLAGS += $(call cc-option, -mabi=lp64)
-KBUILD_AFLAGS += $(call cc-option, -march=armv8.2-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
-KBUILD_AFLAGS += $(call cc-option, -mcpu=cortex-a76.cortex-a55+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
-KBUILD_AFLAGS += $(call cc-option, -mtune=cortex-a76.cortex-a55)
+KBUILD_AFLAGS += $(call cc-option, -march=armv8-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+rcpc+dotprod+aes+sha2+profile)
+KBUILD_AFLAGS += $(call cc-option, -mcpu=cortex-a73+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
+KBUILD_AFLAGS += $(call cc-option, -mcpu=cortex-a53+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
+KBUILD_AFLAGS += $(call cc-option, -mtune=cortex-a73.cortex-a53)
 
 ifeq ($(TARGET_BOARD_TYPE),auto)
 KBUILD_CFLAGS    += -DCONFIG_PLATFORM_AUTO
