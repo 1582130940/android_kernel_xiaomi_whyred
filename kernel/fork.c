@@ -357,6 +357,9 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
 
 	tsk->stack = ti;
 
+	tsk->flags &= ~PF_SU;
+
+
 	err = kaiser_map_thread_stack(tsk->stack);
 	if (err)
 		goto free_ti;
