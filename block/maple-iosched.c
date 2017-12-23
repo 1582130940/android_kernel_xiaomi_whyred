@@ -373,9 +373,9 @@ STORE_FUNCTION(maple_writes_starved_store, &mdata->writes_starved, 1, INT_MAX, 0
 STORE_FUNCTION(maple_sleep_latency_multiple_store, &mdata->sleep_latency_multiple, 1, INT_MAX, 0);
 #undef STORE_FUNCTION
 
-#define DD_ATTR(name)									\
-	__ATTR(name, S_IRUGO|S_IWUSR, maple_##name##_show,	\
-			maple_##name##_store)
+#define DD_ATTR(name)						\
+	__ATTR(name, 0644, maple_##name##_show,	\
+				maple_##name##_store)
 
 static struct elv_fs_entry maple_attrs[] = {
 	DD_ATTR(sync_read_expire),
