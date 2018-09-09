@@ -403,6 +403,11 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fmodulo-sched -fmodulo-sched-allow-regmoves \
 		   -std=gnu89 $(call cc-option,-fno-PIE)
 
+# Optimization for Kryo 200 Services
+KBUILD_CFLAGS   += $(call cc-option, -march=armv8-a+crypto+crc)
+KBUILD_CFLAGS   += $(call cc-option, -mcpu=cortex-a73)
+KBUILD_CFLAGS   += $(call cc-option, -mcpu=cortex-a73+crypto+crc)
+KBUILD_CFLAGS   += $(call cc-option, -mtune=cortex-a73.cortex-a53)
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
