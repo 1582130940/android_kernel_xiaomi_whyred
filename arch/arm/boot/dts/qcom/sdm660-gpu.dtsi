@@ -67,12 +67,12 @@
 
 		qcom,chipid = <0x05010200>;
 
-		qcom,initial-pwrlevel = <6>;
+		qcom,initial-pwrlevel = <5>;
 
 		/* <HZ/12> */
-		qcom,idle-timeout = <80>;
+		qcom,idle-timeout = <64>;
 
-		qcom,highest-bank-bit = <14>;
+		qcom,highest-bank-bit = <15>;
 
 		/* size in bytes */
 		qcom,snapshot-size = <1048576>;
@@ -91,7 +91,7 @@
 		qcom,gpubw-dev = <&gpubw>;
 		qcom,bus-control;
 		/* GPU to BIMC bus width, VBIF data transfer in 1 cycle */
-		qcom,bus-width = <32>;
+		qcom,bus-width = <64>;
 		qcom,msm-bus,name = "grp3d";
 		qcom,msm-bus,num-cases = <14>;
 		qcom,msm-bus,num-paths = <1>;
@@ -180,7 +180,7 @@
 
 				qcom,speed-bin = <0>;
 
-				qcom,initial-pwrlevel = <6>;
+				qcom,initial-pwrlevel = <5>;
 
 				/* TURBO */
 				qcom,gpu-pwrlevel@0 {
@@ -270,7 +270,7 @@
 
 				qcom,speed-bin = <157>;
 
-				qcom,initial-pwrlevel = <6>;
+				qcom,initial-pwrlevel = <5>;
 
 				/* TURBO */
 				qcom,gpu-pwrlevel@0 {
@@ -558,7 +558,7 @@
 
 				qcom,speed-bin = <90>;
 
-				qcom,initial-pwrlevel = <2>;
+				qcom,initial-pwrlevel = <1>;
 
 				/* SVS_L1 */
 				qcom,gpu-pwrlevel@0 {
