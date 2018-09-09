@@ -1829,8 +1829,8 @@ static void start_timer(struct cluster *cl)
 			cl->single_exit_cycles, cl->single_exit_cycle_cnt,
 			cl->multi_enter_cycles, cl->multi_enter_cycle_cnt,
 			cl->multi_exit_cycles, cl->multi_exit_cycle_cnt,
-			cl->timer_rate, cl->mode);
-	} */
+			cl->timer_rate, cl->mode); */
+	}
 	spin_unlock_irqrestore(&cl->timer_lock, flags);
 }
 

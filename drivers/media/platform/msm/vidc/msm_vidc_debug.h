@@ -109,10 +109,9 @@ extern bool msm_vidc_debug_timeout;
 				pr_info(VIDC_DBG_TAG __fmt, \
 						VIDC_MSG_PRIO2STRING(__level), \
 						## arg); \
+			} \
 		} \
 	} while (0)
-
-
 
 struct dentry *msm_vidc_debugfs_init_drv(void);
 struct dentry *msm_vidc_debugfs_init_core(struct msm_vidc_core *core,
