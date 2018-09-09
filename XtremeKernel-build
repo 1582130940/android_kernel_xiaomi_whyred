@@ -12,9 +12,9 @@ rm AnyKernel2/Image.gz-dtb
 rm -rf out
 date="`date +%Y%m%d%H%M%S`"
 zipname="Mi_SDM636_Xtreme™_Kernel-$date.zip"
-make O=out mrproper&&make O=out whyred_user_defconfig&&make O=out -j32
+make O=out mrproper&&make O=out whyred_user_defconfig&&make O=out -j16
 cp -f out/arch/arm64/boot/Image.gz-dtb AnyKernel2
-cp -f out/drivers/staging/qca_cld3/wlan.ko AnyKernel2/modules/vendor/lib/modules/qca_cld3/qca_cld3_wlan.ko
+cp -f out/drivers/staging/qcacld-3.0/wlan.ko AnyKernel2/modules/vendor/lib/modules/qca_cld3/qca_cld3_wlan.ko
 cd AnyKernel2
 zip -9 -r "$zipname" *
 cp -f "$zipname" ~
