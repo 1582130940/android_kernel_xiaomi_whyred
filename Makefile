@@ -303,8 +303,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
-HOSTCXXFLAGS = -O2
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fivopts -fopenmp -ffast-math -fomit-frame-pointer -std=gnu89
+HOSTCXXFLAGS = -O2 -fivopts -fopenmp -ffast-math
 
 ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
 HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
@@ -397,6 +397,10 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
+		   -fdiagnostics-color=always \
+		   -g0 -DNDEBUG \
+		   -fivopts -fopenmp -ffast-math \
+		   -fmodulo-sched -fmodulo-sched-allow-regmoves \
 		   -std=gnu89 $(call cc-option,-fno-PIE)
 
 
@@ -619,7 +623,6 @@ ARCH_AFLAGS :=
 ARCH_CFLAGS :=
 include arch/$(SRCARCH)/Makefile
 
-KBUILD_CFLAGS	+= $(call cc-option, -fno-delete-null-pointer-checks,)
 KBUILD_CFLAGS	+= $(call cc-disable-warning, maybe-uninitialized,)
 KBUILD_CFLAGS	+= $(call cc-disable-warning, frame-address,)
 KBUILD_CFLAGS	+= $(call cc-disable-warning, format-truncation)
@@ -701,6 +704,7 @@ ifeq ($(cc-name),clang)
 KBUILD_CPPFLAGS += $(call cc-option, -Qunused-arguments,)
 KBUILD_CPPFLAGS += $(call cc-option, -Wno-unknown-warning-option,)
 KBUILD_CFLAGS += $(call cc-disable-warning, unused-variable)
+KBUILD_CFLAGS += $(call cc-disable-warning, unused-but-set-variable)
 KBUILD_CFLAGS += $(call cc-disable-warning, format-invalid-specifier)
 KBUILD_CFLAGS += $(call cc-disable-warning, gnu)
 # Quiet clang warning: comparison of unsigned expression < 0 is always false
@@ -714,6 +718,7 @@ else
 
 # These warnings generated too much noise in a regular build.
 # Use make W=1 to enable them (see scripts/Makefile.build)
+KBUILD_CFLAGS += $(call cc-disable-warning, unused-variable)
 KBUILD_CFLAGS += $(call cc-disable-warning, unused-but-set-variable)
 KBUILD_CFLAGS += $(call cc-disable-warning, unused-const-variable)
 endif
