@@ -388,9 +388,9 @@ static int dpm_run_callback(pm_callback_t cb, struct device *dev,
 	calltime = initcall_debug_start(dev);
 
 	pm_dev_dbg(dev, state, info);
-	trace_device_pm_callback_start(dev, info, state.event);
+//	trace_device_pm_callback_start(dev, info, state.event);
 	error = cb(dev);
-	trace_device_pm_callback_end(dev, error);
+//	trace_device_pm_callback_end(dev, error);
 	suspend_report_result(cb, error);
 
 	initcall_debug_report(dev, calltime, error, state, info);
@@ -480,8 +480,8 @@ static int device_resume_noirq(struct device *dev, pm_message_t state, bool asyn
 	char *info = NULL;
 	int error = 0;
 
-	TRACE_DEVICE(dev);
-	TRACE_RESUME(0);
+//	TRACE_DEVICE(dev);
+//	TRACE_RESUME(0);
 
 	if (dev->power.syscore || dev->power.direct_complete)
 		goto Out;
@@ -515,7 +515,7 @@ static int device_resume_noirq(struct device *dev, pm_message_t state, bool asyn
 
  Out:
 	complete_all(&dev->power.completion);
-	TRACE_RESUME(error);
+//	TRACE_RESUME(error);
 	return error;
 }
 
@@ -549,7 +549,7 @@ void dpm_resume_noirq(pm_message_t state)
 	struct device *dev;
 	ktime_t starttime = ktime_get();
 
-	trace_suspend_resume(TPS("dpm_resume_noirq"), state.event, true);
+//	trace_suspend_resume(TPS("dpm_resume_noirq"), state.event, true);
 	mutex_lock(&dpm_list_mtx);
 	pm_transition = state;
 
@@ -593,7 +593,7 @@ void dpm_resume_noirq(pm_message_t state)
 	resume_device_irqs();
 	device_wakeup_disarm_wake_irqs();
 	cpuidle_resume();
-	trace_suspend_resume(TPS("dpm_resume_noirq"), state.event, false);
+//	trace_suspend_resume(TPS("dpm_resume_noirq"), state.event, false);
 }
 
 /**
@@ -610,8 +610,8 @@ static int device_resume_early(struct device *dev, pm_message_t state, bool asyn
 	char *info = NULL;
 	int error = 0;
 
-	TRACE_DEVICE(dev);
-	TRACE_RESUME(0);
+//	TRACE_DEVICE(dev);
+//	TRACE_RESUME(0);
 
 	if (dev->power.syscore || dev->power.direct_complete)
 		goto Out;
@@ -644,7 +644,7 @@ static int device_resume_early(struct device *dev, pm_message_t state, bool asyn
 	dev->power.is_late_suspended = false;
 
  Out:
-	TRACE_RESUME(error);
+//	TRACE_RESUME(error);
 
 	pm_runtime_enable(dev);
 	complete_all(&dev->power.completion);
@@ -672,7 +672,11 @@ void dpm_resume_early(pm_message_t state)
 	struct device *dev;
 	ktime_t starttime = ktime_get();
 
-	trace_suspend_resume(TPS("dpm_resume_early"), state.event, true);
+#ifdef CONFIG_BOEFFLA_WL_BLOCKER
+	pm_print_active_wakeup_sources();
+#endif
+
+//	trace_suspend_resume(TPS("dpm_resume_early"), state.event, true);
 	mutex_lock(&dpm_list_mtx);
 	pm_transition = state;
 
@@ -712,7 +716,7 @@ void dpm_resume_early(pm_message_t state)
 	mutex_unlock(&dpm_list_mtx);
 	async_synchronize_full();
 	dpm_show_time(starttime, state, "early");
-	trace_suspend_resume(TPS("dpm_resume_early"), state.event, false);
+//	trace_suspend_resume(TPS("dpm_resume_early"), state.event, false);
 }
 
 /**
@@ -739,8 +743,8 @@ static int device_resume(struct device *dev, pm_message_t state, bool async)
 	int error = 0;
 	DECLARE_DPM_WATCHDOG_ON_STACK(wd);
 
-	TRACE_DEVICE(dev);
-	TRACE_RESUME(0);
+//	TRACE_DEVICE(dev);
+//	TRACE_RESUME(0);
 
 	if (dev->power.syscore)
 		goto Complete;
@@ -816,7 +820,7 @@ static int device_resume(struct device *dev, pm_message_t state, bool async)
  Complete:
 	complete_all(&dev->power.completion);
 
-	TRACE_RESUME(error);
+//	TRACE_RESUME(error);
 
 	return error;
 }
@@ -844,7 +848,7 @@ void dpm_resume(pm_message_t state)
 	struct device *dev;
 	ktime_t starttime = ktime_get();
 
-	trace_suspend_resume(TPS("dpm_resume"), state.event, true);
+//	trace_suspend_resume(TPS("dpm_resume"), state.event, true);
 	might_sleep();
 
 	mutex_lock(&dpm_list_mtx);
@@ -886,7 +890,7 @@ void dpm_resume(pm_message_t state)
 	dpm_show_time(starttime, state, NULL);
 
 	cpufreq_resume();
-	trace_suspend_resume(TPS("dpm_resume"), state.event, false);
+//	trace_suspend_resume(TPS("dpm_resume"), state.event, false);
 }
 
 /**
@@ -944,7 +948,7 @@ void dpm_complete(pm_message_t state)
 {
 	struct list_head list;
 
-	trace_suspend_resume(TPS("dpm_complete"), state.event, true);
+//	trace_suspend_resume(TPS("dpm_complete"), state.event, true);
 	might_sleep();
 
 	INIT_LIST_HEAD(&list);
@@ -957,16 +961,16 @@ void dpm_complete(pm_message_t state)
 		list_move(&dev->power.entry, &list);
 		mutex_unlock(&dpm_list_mtx);
 
-		trace_device_pm_callback_start(dev, "", state.event);
+//		trace_device_pm_callback_start(dev, "", state.event);
 		device_complete(dev, state);
-		trace_device_pm_callback_end(dev, 0);
+//		trace_device_pm_callback_end(dev, 0);
 
 		mutex_lock(&dpm_list_mtx);
 		put_device(dev);
 	}
 	list_splice(&list, &dpm_list);
 	mutex_unlock(&dpm_list_mtx);
-	trace_suspend_resume(TPS("dpm_complete"), state.event, false);
+//	trace_suspend_resume(TPS("dpm_complete"), state.event, false);
 }
 
 /**
@@ -1022,8 +1026,8 @@ static int __device_suspend_noirq(struct device *dev, pm_message_t state, bool a
 	char *info = NULL;
 	int error = 0;
 
-	TRACE_DEVICE(dev);
-	TRACE_SUSPEND(0);
+//	TRACE_DEVICE(dev);
+//	TRACE_SUSPEND(0);
 
 	dpm_wait_for_children(dev, async);
 
@@ -1065,7 +1069,7 @@ static int __device_suspend_noirq(struct device *dev, pm_message_t state, bool a
 
 Complete:
 	complete_all(&dev->power.completion);
-	TRACE_SUSPEND(error);
+//	TRACE_SUSPEND(error);
 	return error;
 }
 
@@ -1107,7 +1111,7 @@ int dpm_suspend_noirq(pm_message_t state)
 	ktime_t starttime = ktime_get();
 	int error = 0;
 
-	trace_suspend_resume(TPS("dpm_suspend_noirq"), state.event, true);
+//	trace_suspend_resume(TPS("dpm_suspend_noirq"), state.event, true);
 	cpuidle_pause();
 	device_wakeup_arm_wake_irqs();
 	suspend_device_irqs();
@@ -1149,7 +1153,7 @@ int dpm_suspend_noirq(pm_message_t state)
 	} else {
 		dpm_show_time(starttime, state, "noirq");
 	}
-	trace_suspend_resume(TPS("dpm_suspend_noirq"), state.event, false);
+//	trace_suspend_resume(TPS("dpm_suspend_noirq"), state.event, false);
 	return error;
 }
 
@@ -1167,8 +1171,8 @@ static int __device_suspend_late(struct device *dev, pm_message_t state, bool as
 	char *info = NULL;
 	int error = 0;
 
-	TRACE_DEVICE(dev);
-	TRACE_SUSPEND(0);
+//	TRACE_DEVICE(dev);
+//	TRACE_SUSPEND(0);
 
 	__pm_runtime_disable(dev, false);
 
@@ -1211,7 +1215,7 @@ static int __device_suspend_late(struct device *dev, pm_message_t state, bool as
 		async_error = error;
 
 Complete:
-	TRACE_SUSPEND(error);
+//	TRACE_SUSPEND(error);
 	complete_all(&dev->power.completion);
 	return error;
 }
@@ -1251,7 +1255,7 @@ int dpm_suspend_late(pm_message_t state)
 	ktime_t starttime = ktime_get();
 	int error = 0;
 
-	trace_suspend_resume(TPS("dpm_suspend_late"), state.event, true);
+//	trace_suspend_resume(TPS("dpm_suspend_late"), state.event, true);
 	mutex_lock(&dpm_list_mtx);
 	pm_transition = state;
 	async_error = 0;
@@ -1290,7 +1294,7 @@ int dpm_suspend_late(pm_message_t state)
 	} else {
 		dpm_show_time(starttime, state, "late");
 	}
-	trace_suspend_resume(TPS("dpm_suspend_late"), state.event, false);
+//	trace_suspend_resume(TPS("dpm_suspend_late"), state.event, false);
 	return error;
 }
 
@@ -1330,9 +1334,9 @@ static int legacy_suspend(struct device *dev, pm_message_t state,
 
 	calltime = initcall_debug_start(dev);
 
-	trace_device_pm_callback_start(dev, info, state.event);
+//	trace_device_pm_callback_start(dev, info, state.event);
 	error = cb(dev, state);
-	trace_device_pm_callback_end(dev, error);
+//	trace_device_pm_callback_end(dev, error);
 	suspend_report_result(cb, error);
 
 	initcall_debug_report(dev, calltime, error, state, info);
@@ -1354,8 +1358,8 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
 	char suspend_abort[MAX_SUSPEND_ABORT_LEN];
 	DECLARE_DPM_WATCHDOG_ON_STACK(wd);
 
-	TRACE_DEVICE(dev);
-	TRACE_SUSPEND(0);
+//	TRACE_DEVICE(dev);
+//	TRACE_SUSPEND(0);
 
 	dpm_wait_for_children(dev, async);
 
@@ -1466,7 +1470,7 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
 	if (error)
 		async_error = error;
 
-	TRACE_SUSPEND(error);
+//	TRACE_SUSPEND(error);
 	return error;
 }
 
@@ -1506,7 +1510,7 @@ int dpm_suspend(pm_message_t state)
 	ktime_t starttime = ktime_get();
 	int error = 0;
 
-	trace_suspend_resume(TPS("dpm_suspend"), state.event, true);
+//	trace_suspend_resume(TPS("dpm_suspend"), state.event, true);
 	might_sleep();
 
 	cpufreq_suspend();
@@ -1544,7 +1548,7 @@ int dpm_suspend(pm_message_t state)
 		dpm_save_failed_step(SUSPEND_SUSPEND);
 	} else
 		dpm_show_time(starttime, state, NULL);
-	trace_suspend_resume(TPS("dpm_suspend"), state.event, false);
+//	trace_suspend_resume(TPS("dpm_suspend"), state.event, false);
 	return error;
 }
 
@@ -1635,7 +1639,7 @@ int dpm_prepare(pm_message_t state)
 {
 	int error = 0;
 
-	trace_suspend_resume(TPS("dpm_prepare"), state.event, true);
+//	trace_suspend_resume(TPS("dpm_prepare"), state.event, true);
 	might_sleep();
 
 	mutex_lock(&dpm_list_mtx);
@@ -1645,9 +1649,9 @@ int dpm_prepare(pm_message_t state)
 		get_device(dev);
 		mutex_unlock(&dpm_list_mtx);
 
-		trace_device_pm_callback_start(dev, "", state.event);
+//		trace_device_pm_callback_start(dev, "", state.event);
 		error = device_prepare(dev, state);
-		trace_device_pm_callback_end(dev, error);
+//		trace_device_pm_callback_end(dev, error);
 
 		mutex_lock(&dpm_list_mtx);
 		if (error) {
@@ -1668,7 +1672,7 @@ int dpm_prepare(pm_message_t state)
 		put_device(dev);
 	}
 	mutex_unlock(&dpm_list_mtx);
-	trace_suspend_resume(TPS("dpm_prepare"), state.event, false);
+//	trace_suspend_resume(TPS("dpm_prepare"), state.event, false);
 	return error;
 }
 
