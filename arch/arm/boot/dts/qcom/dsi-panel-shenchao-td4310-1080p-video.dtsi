@@ -15,7 +15,7 @@
 		qcom,mdss-dsi-panel-name = "shenchao td4310 fhd video mode dsi panel";
 		qcom,mdss-dsi-panel-controller = <&mdss_dsi0>;
 		qcom,mdss-dsi-panel-type = "dsi_video_mode";
-		qcom,mdss-dsi-panel-framerate = <60>;
+		qcom,mdss-dsi-panel-framerate = <61>;
 		qcom,mdss-dsi-virtual-channel-id = <0>;
 		qcom,mdss-dsi-stream = <0>;
 		qcom,mdss-dsi-panel-width = <1080>;
@@ -162,7 +162,6 @@
 		qcom,mdss-dsi-gamma24-command = [
 				29 01 00 00 00 00 14 C8 01 00 F9 02 02 7E 00 00 01 04 02 B7 00 00 FC 03 FE FC 00
 		];
-
 
 		qcom,mdss-dsi-on-command-state = "dsi_lp_mode";
 		qcom,mdss-dsi-off-command-state = "dsi_hs_mode";

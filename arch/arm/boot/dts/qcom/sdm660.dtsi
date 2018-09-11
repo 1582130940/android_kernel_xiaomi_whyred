@@ -307,7 +307,7 @@
 					dev = "/dev/block/platform/soc/c0c4000.sdhci/by-name/system";
 					type = "ext4";
 					mnt_flags = "ro,barrier=1,discard";
-					fsmgr_flags = "wait,verify";
+					fsmgr_flags = "wait";
 					status = "ok";
 				};
 				vendor {
@@ -315,7 +315,7 @@
 					dev = "/dev/block/platform/soc/c0c4000.sdhci/by-name/vendor";
 					type = "ext4";
 					mnt_flags = "ro,barrier=1,discard";
-					fsmgr_flags = "wait,verify";
+					fsmgr_flags = "wait";
 					status = "ok";
 				};
 			};
@@ -1243,6 +1243,7 @@
 			< 902400 762 >,
 			< 1113600 762 >,
 			< 1401600 3879 >,
+			< 1958400 5163 >,
 			< 2150400 5931 >,
 			< 2361600 6881 >,
 			< 2457600 6881 >;
@@ -1263,7 +1264,8 @@
 				< 1113600 762 >,
 				< 1401600 2086 >,
 				< 1747200 3879 >,
-				< 2150400 5391 >,
+				< 1958400 5163 >,
+				< 2150400 5931 >,
 				< 2361600 6881 >,
 				< 2457600 6881 >;
 		};

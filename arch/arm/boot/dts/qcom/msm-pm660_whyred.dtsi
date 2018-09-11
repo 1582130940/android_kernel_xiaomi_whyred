@@ -279,7 +279,7 @@
 				qcom,fast-avg-setup = <0>;
 			};
 
-                       chan@50 {
+			chan@50 {
 				label = "id3_therm";
 				reg = <0x50>;
 				qcom,decimation = <2>;
@@ -366,9 +366,9 @@
 
 
 			qcom,thermal-mitigation
-					= <2500000 2000000 1000000 800000 500000>;
+					= <2900000 2000000 1500000 1000000 500000>;
 			qcom,thermal-mitigation-china
-					= <2500000 2300000 2000000 1500000 1000000 400000>;
+					= <2900000 2000000 1500000 1000000 500000>;
 
 			qcom,chgr@1000 {
 				reg = <0x1000 0x100>;

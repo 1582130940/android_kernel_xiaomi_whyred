@@ -10,7 +10,6 @@
  * GNU General Public License for more details.
  */
 
-
 /dts-v1/;
 
 #include "sdm660.dtsi"
@@ -38,7 +37,7 @@
 };
 
 &pm660l_l3 {
-        regulator-always-on;
+	regulator-always-on;
 };
 &tlmm {
 	hall_int_active:hall_int_active {
@@ -170,4 +169,3 @@
 		compatible = "dspg,snd-dbmdx-mach-drv";
 	};
 };
-

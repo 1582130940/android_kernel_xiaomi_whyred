@@ -15,7 +15,7 @@
 		qcom,mdss-dsi-panel-name = "tianma td4310 fhd video mode dsi panel";
 		qcom,mdss-dsi-panel-controller = <&mdss_dsi0>;
 		qcom,mdss-dsi-panel-type = "dsi_video_mode";
-		qcom,mdss-dsi-panel-framerate = <60>;
+		qcom,mdss-dsi-panel-framerate = <61>;
 		qcom,mdss-dsi-virtual-channel-id = <0>;
 		qcom,mdss-dsi-stream = <0>;
 		qcom,mdss-dsi-panel-width = <1080>;
@@ -165,7 +165,6 @@
 		qcom,mdss-dsi-gamma24-command = [
 				29 01 00 00 00 00 14 C8 01 00 01 FE 01 86 00 00 02 FE 01 E6 00 00 01 FE FD FC 00
 		];
-
 
 		qcom,mdss-dsi-on-command-state = "dsi_lp_mode";
 		qcom,mdss-dsi-off-command-state = "dsi_hs_mode";

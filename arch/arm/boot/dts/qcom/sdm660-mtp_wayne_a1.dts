@@ -10,7 +10,6 @@
  * GNU General Public License for more details.
  */
 
-
 /dts-v1/;
 
 #include "sdm660.dtsi"
@@ -188,4 +187,3 @@
 		compatible = "dspg,snd-dbmdx-mach-drv";
 	};
 };
-

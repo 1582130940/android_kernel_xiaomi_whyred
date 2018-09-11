@@ -33,7 +33,6 @@
 	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
 };
 
-
 &dsi_td4310_shenchao_fhd_video {
 	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_wled";
 	qcom,mdss-dsi-bl-min-level = <1>;

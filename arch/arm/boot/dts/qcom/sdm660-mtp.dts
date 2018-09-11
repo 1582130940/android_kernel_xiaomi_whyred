@@ -10,7 +10,6 @@
  * GNU General Public License for more details.
  */
 
-
 /dts-v1/;
 
 #include "sdm660.dtsi"
@@ -39,4 +38,3 @@
 &soc {
 	/delete-node/sound-9335;
 };
-
