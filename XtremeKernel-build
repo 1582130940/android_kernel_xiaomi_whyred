@@ -1,6 +1,7 @@
 #!/bin/bash
 export ARCH=arm64
 export SUBARCH=arm64
+export HEADER_ARCH=arm64
 export CLANG_PATH="${HOME}/prebuilts/clang/host/linux-x86/clang-r328903"
 export CLANG_TRIPLE="aarch64-linux-gnu-"
 export CC="$CLANG_PATH/bin/clang"
