@@ -82,7 +82,7 @@ struct wb_writeback_work {
  * timestamps written to disk after 12 hours, but in the worst case a
  * few inodes might not their timestamps updated for 24 hours.
  */
-unsigned int dirtytime_expire_interval = 12 * 60 * 60;
+unsigned int dirtytime_expire_interval = 3 * 60 * 60;
 
 static inline struct inode *wb_inode(struct list_head *head)
 {
