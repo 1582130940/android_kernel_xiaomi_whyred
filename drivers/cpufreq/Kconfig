@@ -112,6 +112,15 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVE
 	  loading your cpufreq low-level hardware driver, using the
 	  'interactive' governor for latency-sensitive workloads.
 
+config CPU_FREQ_DEFAULT_GOV_INTERACTIVEX
+	bool "interactivex"
+	select CPU_FREQ_GOV_INTERACTIVEX
+	help
+	  Use the CPUFreq governor 'interactivex' as default. This allows
+	  you to get a full dynamic cpu frequency capable system by simply
+	  loading your cpufreq low-level hardware driver, using the
+	  'interactive' governor for latency-sensitive workloads.
+
 config CPU_FREQ_DEFAULT_GOV_SCHED
 	bool "sched"
 	select CPU_FREQ_GOV_SCHED
@@ -199,6 +208,18 @@ config CPU_FREQ_GOV_INTERACTIVE
 	  For details, take a look at linux/Documentation/cpu-freq.
 
 	  If in doubt, say N.
+
+config CPU_FREQ_GOV_INTERACTIVEX
+	tristate "'interactivex' cpufreq policy governor"
+	help
+	  Created by kernel developer "Imoseyon". The InteractiveX governor
+	  is based heavily on the Interactive governor, and enhanced with tuned
+	  timer parameters to better balance battery vs. performance. The
+	  InteractiveX governor's defining feature, however, is that it locks
+	  the CPU frequency to the user's lowest defined speed when the screen
+	  is off.
+
+ 	  If in doubt, say N.
 
 config CPU_FREQ_GOV_CONSERVATIVE
 	tristate "'conservative' cpufreq governor"
