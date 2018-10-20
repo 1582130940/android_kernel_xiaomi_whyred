@@ -11,16 +11,13 @@
  */
 
 #include "sdm660-pinctrl.dtsi"
-#include "sdm660-camera-sensor-mtp.dtsi"
+#include "sdm660-camera-sensor-mtp_whyred.dtsi"
 / {
 	mtp_batterydata: qcom,battery-data {
 		qcom,batt-id-range-pct = <15>;
-
-		#include "fg-gen3-batterydata-l8866sun-3000mah.dtsi"
-		#include "fg-gen3-batterydata-l8866cos-3000mah.dtsi"
-
-//		#include "fg-gen3-batterydata-itech-3000mah.dtsi"
-//		#include "fg-gen3-batterydata-ascent-3450mah.dtsi"
+		#include "fg-gen3-batterydata-l6650sun-4000mah.dtsi"
+		#include "fg-gen3-batterydata-l6650cos-4000mah.dtsi"
+		#include "fg-gen3-batterydata-l6650desay-4000mah.dtsi"
 	};
 };
 
@@ -104,24 +101,12 @@
 
 &mdss_dsi0 {
 	qcom,dsi-pref-prim-pan = <&dsi_td4310_tianma_fhd_video>;
-
-//	qcom,dsi-pref-prim-pan = <&dsi_dual_nt35597_truly_video>;
-
 	pinctrl-names = "mdss_default", "mdss_sleep";
 	pinctrl-0 = <&mdss_dsi_active &mdss_te_active>;
 	pinctrl-1 = <&mdss_dsi_suspend &mdss_te_suspend>;
 	qcom,platform-reset-gpio = <&tlmm 53 0>;
 	qcom,platform-te-gpio = <&tlmm 59 0>;
 };
-
-//&mdss_dsi1 {
-//	qcom,dsi-pref-prim-pan = <&dsi_dual_nt35597_truly_video>;
-//	pinctrl-names = "mdss_default", "mdss_sleep";
-//	pinctrl-0 = <&mdss_dsi_active &mdss_te_active>;
-//	pinctrl-1 = <&mdss_dsi_suspend &mdss_te_suspend>;
-//	qcom,platform-reset-gpio = <&tlmm 53 0>;
-//	qcom,platform-te-gpio = <&tlmm 59 0>;
-//};
 
 &mdss_dp_ctrl {
 	pinctrl-names = "mdss_dp_active", "mdss_dp_sleep";
@@ -134,8 +119,6 @@
 
 &pm660l_wled {
 	qcom,led-strings-list = [00 01];
-
-//	qcom,led-strings-list = [01 02];
 };
 
 &dsi_td4310_tianma_fhd_video {
@@ -146,20 +129,6 @@
 };
 
 &dsi_nt36672_tianma_fhd_video {
-	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_wled";
-	qcom,mdss-dsi-bl-min-level = <1>;
-	qcom,mdss-dsi-bl-max-level = <4095>;
-	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
-};
-
-&dsi_nt36672_jdi_fhd_video {
-	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_wled";
-	qcom,mdss-dsi-bl-min-level = <1>;
-	qcom,mdss-dsi-bl-max-level = <4095>;
-	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
-};
-
-&dsi_nt36672_huaxing_fhd_video {
 	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_wled";
 	qcom,mdss-dsi-bl-min-level = <1>;
 	qcom,mdss-dsi-bl-max-level = <4095>;
@@ -228,13 +197,6 @@
 	qcom,panel-supply-entries = <&dsi_panel_pwr_supply_labibb_amoled>;
 };
 
-&dsi_lgd_incell_sw49106_fhd_video {
-	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_wled";
-	qcom,mdss-dsi-bl-min-level = <1>;
-	qcom,mdss-dsi-bl-max-level = <4095>;
-	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
-};
-
 &sdhc_1 {
 	/* device core power supply */
 	vdd-supply = <&pm660l_l4>;
@@ -285,10 +247,7 @@
 			1 &intc 0 0 221 0
 			2 &tlmm 54 0>;
 	interrupt-names = "hc_irq", "pwr_irq", "status_irq";
-
 	cd-gpios = <&tlmm 54 0x0>;
-
-//	cd-gpios = <&tlmm 54 0x1>;
 
 	qcom,clk-rates = <400000 20000000 25000000 50000000 100000000
 								200000000>;
@@ -303,9 +262,9 @@
 	compatible = "goodix,fingerprint";
 	interrupt-parent = <&tlmm>;
 	interrupt = <72 0x0>;
-        vcc_spi-supply = <&pm660l_l3>;
-	vcc_ana-supply = <&pm660l_l3>;
-	vdd_io-supply = <&pm660l_l3>;
+        vcc_spi_supply = <&pm660_l16>;
+	vcc_ana_supply = <&pm660_l16>;
+	vdd_io-supply = <&pm660_l16>;
 	fp-gpio-irq = <&tlmm 72 0x00>;
 	fp-gpio-reset = <&tlmm 20 0x00>;
 	status = "okay";
@@ -329,6 +288,16 @@
 		pinctrl-0 = <&msm_gpio_20>;
 		pinctrl-1 = <&msm_gpio_20_output_high>;
 		pinctrl-2 = <&msm_gpio_72>;
+	};
+
+	hall_switch {
+		compatible = "hall-switch,och175";
+		pinctrl-names = "hall_active","hall_suspend";
+		pinctrl-0 = <&hall_int_active>;
+		pinctrl-1 = <&hall_int_suspend>;
+		vdd-io-supply= <&pm660_l8>;
+		interrupt-names = "hall_irq";
+	        hall,irq-gpio = <&tlmm 75 0x0>;
 	};
 
 	qcom,msm-ssc-sensors {
