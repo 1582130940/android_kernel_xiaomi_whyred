@@ -38,6 +38,10 @@
 #include <linux/pm_runtime.h>
 #include <linux/ioprio.h>
 
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+#include <linux/mmc/ffu.h>
+#endif
+
 #include <trace/events/mmc.h>
 
 #include <linux/mmc/ioctl.h>
@@ -165,7 +169,7 @@ MODULE_PARM_DESC(perdev_minors, "Minors numbers to allocate per device");
 static inline int mmc_blk_part_switch(struct mmc_card *card,
 				      struct mmc_blk_data *md);
 static int get_card_status(struct mmc_card *card, u32 *status, int retries);
-static int mmc_blk_cmdq_switch(struct mmc_card *card,
+int mmc_blk_cmdq_switch(struct mmc_card *card,
 			       struct mmc_blk_data *md, bool enable);
 
 static inline void mmc_blk_clear_packed(struct mmc_queue_req *mqrq)
@@ -1349,7 +1353,7 @@ static const struct block_device_operations mmc_bdops = {
 #endif
 };
 
-static int mmc_blk_cmdq_switch(struct mmc_card *card,
+int mmc_blk_cmdq_switch(struct mmc_card *card,
 			       struct mmc_blk_data *md, bool enable)
 {
 	int ret = 0;
@@ -4673,6 +4677,10 @@ static int mmc_blk_probe(struct mmc_card *card)
 		pm_runtime_set_active(&card->dev);
 		pm_runtime_enable(&card->dev);
 	}
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+	mmc_ffu(card);
+#endif
 
 	return 0;
 
