@@ -214,10 +214,19 @@
 				qcom,default-state = "off";
 				linux,name = "red";
 				qcom,start-idx = <0>;
-				qcom,idx-len = <22>;
+
+				qcom,idx-len = <12>;
+
+//				qcom,idx-len = <22>;
+
 				qcom,duty-pcts =
-					[01 0a 14 1e 28 32 3c 46 50 5a 64
-					64 5a 50 46 3c 32 28 1e 14 0a 01];
+
+					[01 0a 1e 28 3c 50 5a
+					64 46 1e 0a 01];
+
+//					[01 0a 14 1e 28 32 3c 46 50 5a 64
+//					64 5a 50 46 3c 32 28 1e 14 0a 01];
+
 				qcom,use-blink;
 			};
 
@@ -268,8 +277,13 @@
 			qcom,cons-sync-write-delay-us = <1000>;
 			qcom,led-strings-list = [00 01 02];
 			qcom,loop-auto-gm-en;
+
+			qcom,en-cabc;
+
 			qcom,pmic-revid = <&pm660l_revid>;
-			qcom,auto-calibration-enable;
+
+//			qcom,auto-calibration-enable;
+
 			status = "ok";
 		};
 
@@ -367,6 +381,14 @@
 				qcom,hdrm-vol-hi-lo-win-mv = <100>;
 			};
 
+			qcom,flashlight_0 {
+				label = "flashlight";
+				qcom,led-name = "flashlight";
+				qcom,torch-name = "led:torch_0", "led:torch_1";
+				qcom,switch-name = "led:switch_0";
+				qcom,id = <0>;
+			};
+
 			pm660l_switch0: qcom,led_switch_0 {
 				label = "switch";
 				qcom,led-name = "led:switch_0";
@@ -395,6 +417,9 @@
 			lcdb_ldo_vreg: ldo {
 				label = "ldo";
 				regulator-name = "lcdb_ldo";
+
+				qcom,ldo-ilim-ma = <260>;
+
 				regulator-min-microvolt = <4000000>;
 				regulator-max-microvolt = <6000000>;
 			};
@@ -402,6 +427,9 @@
 			lcdb_ncp_vreg: ncp {
 				label = "ncp";
 				regulator-name = "lcdb_ncp";
+
+				qcom,ncp-ilim-ma = <260>;
+
 				regulator-min-microvolt = <4000000>;
 				regulator-max-microvolt = <6000000>;
 			};

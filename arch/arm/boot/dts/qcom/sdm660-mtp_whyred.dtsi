@@ -11,13 +11,14 @@
  */
 
 #include "sdm660-pinctrl.dtsi"
-#include "sdm660-camera-sensor-mtp.dtsi"
+#include "sdm660-camera-sensor-mtp_whyred.dtsi"
 / {
 	mtp_batterydata: qcom,battery-data {
 		qcom,batt-id-range-pct = <15>;
 
-		#include "fg-gen3-batterydata-l8866sun-3000mah.dtsi"
-		#include "fg-gen3-batterydata-l8866cos-3000mah.dtsi"
+		#include "fg-gen3-batterydata-l6650sun-4000mah.dtsi"
+		#include "fg-gen3-batterydata-l6650cos-4000mah.dtsi"
+		#include "fg-gen3-batterydata-l6650desay-4000mah.dtsi"
 
 //		#include "fg-gen3-batterydata-itech-3000mah.dtsi"
 //		#include "fg-gen3-batterydata-ascent-3450mah.dtsi"
@@ -303,9 +304,9 @@
 	compatible = "goodix,fingerprint";
 	interrupt-parent = <&tlmm>;
 	interrupt = <72 0x0>;
-        vcc_spi-supply = <&pm660l_l3>;
-	vcc_ana-supply = <&pm660l_l3>;
-	vdd_io-supply = <&pm660l_l3>;
+        vcc_spi_supply = <&pm660_l16>;
+	vcc_ana_supply = <&pm660_l16>;
+	vdd_io-supply = <&pm660_l16>;
 	fp-gpio-irq = <&tlmm 72 0x00>;
 	fp-gpio-reset = <&tlmm 20 0x00>;
 	status = "okay";
@@ -329,6 +330,16 @@
 		pinctrl-0 = <&msm_gpio_20>;
 		pinctrl-1 = <&msm_gpio_20_output_high>;
 		pinctrl-2 = <&msm_gpio_72>;
+	};
+
+	hall_switch {
+		compatible = "hall-switch,och175";
+		pinctrl-names = "hall_active","hall_suspend";
+		pinctrl-0 = <&hall_int_active>;
+		pinctrl-1 = <&hall_int_suspend>;
+		vdd-io-supply= <&pm660_l8>;
+		interrupt-names = "hall_irq";
+	        hall,irq-gpio = <&tlmm 75 0x0>;
 	};
 
 	qcom,msm-ssc-sensors {
