@@ -668,6 +668,7 @@ static int msm_eeprom_config(struct msm_eeprom_ctrl_t *e_ctrl,
 			rc = 0;
 #else
 			rc = -EINVAL;
+#endif
 
 			break;
 		}

@@ -2347,6 +2347,7 @@ static int qpnp_flash_led_probe(struct platform_device *pdev)
 	int rc, i = 0, j = 0, k = 0;
 #else
 	int rc, i = 0, j = 0;
+#endif
 
 	node = pdev->dev.of_node;
 	if (!node) {

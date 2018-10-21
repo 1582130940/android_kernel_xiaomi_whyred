@@ -1322,7 +1322,7 @@ int mmc_set_auto_bkops(struct mmc_card *card, bool enable)
 #if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
 	if (!strcmp(card->cid.prod_name, "S0J97Y"))
 		bkops_en = 0;
-#ednif
+#endif
 
 	ret = mmc_switch(card, EXT_CSD_CMD_SET_NORMAL, EXT_CSD_BKOPS_EN,
 			bkops_en, 0);
