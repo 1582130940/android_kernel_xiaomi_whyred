@@ -15,6 +15,7 @@
 / {
 	mtp_batterydata: qcom,battery-data {
 		qcom,batt-id-range-pct = <15>;
+
 		#include "fg-gen3-batterydata-l6650sun-4000mah.dtsi"
 		#include "fg-gen3-batterydata-l6650cos-4000mah.dtsi"
 		#include "fg-gen3-batterydata-l6650desay-4000mah.dtsi"
@@ -101,6 +102,7 @@
 
 &mdss_dsi0 {
 	qcom,dsi-pref-prim-pan = <&dsi_td4310_tianma_fhd_video>;
+
 	pinctrl-names = "mdss_default", "mdss_sleep";
 	pinctrl-0 = <&mdss_dsi_active &mdss_te_active>;
 	pinctrl-1 = <&mdss_dsi_suspend &mdss_te_suspend>;
@@ -129,6 +131,20 @@
 };
 
 &dsi_nt36672_tianma_fhd_video {
+	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_wled";
+	qcom,mdss-dsi-bl-min-level = <1>;
+	qcom,mdss-dsi-bl-max-level = <4095>;
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+};
+
+&dsi_nt36672_jdi_fhd_video {
+	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_wled";
+	qcom,mdss-dsi-bl-min-level = <1>;
+	qcom,mdss-dsi-bl-max-level = <4095>;
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+};
+
+&dsi_nt36672_huaxing_fhd_video {
 	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_wled";
 	qcom,mdss-dsi-bl-min-level = <1>;
 	qcom,mdss-dsi-bl-max-level = <4095>;
@@ -195,6 +211,13 @@
 
 &dsi_rm67195_amoled_fhd_cmd {
 	qcom,panel-supply-entries = <&dsi_panel_pwr_supply_labibb_amoled>;
+};
+
+&dsi_lgd_incell_sw49106_fhd_video {
+	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_wled";
+	qcom,mdss-dsi-bl-min-level = <1>;
+	qcom,mdss-dsi-bl-max-level = <4095>;
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
 };
 
 &sdhc_1 {

@@ -33,8 +33,10 @@
 	cam_avdd_gpio_regulator: cam_avdd_fixed_regulator {
 		compatible = "regulator-fixed";
 		regulator-name = "cam_avdd_gpio_regulator";
+
 		regulator-min-microvolt = <2800000>;
 		regulator-max-microvolt = <2800000>;
+
 		enable-active-high;
 		gpio = <&tlmm 46 0>;
 		vin-supply = <&pm660l_bob>;
@@ -49,11 +51,14 @@
 		gpio = <&tlmm 51 0>;
 		vin-supply = <&pm660l_bob>;
 	};
+
 	cam_rear_dvdd_gpio_regulator: cam_rear_dvdd_fixed_regulator {
 		compatible = "regulator-fixed";
 		regulator-name = "cam_rear_dvdd_gpio_regulator";
+
 		regulator-min-microvolt = <1200000>;
 		regulator-max-microvolt = <1200000>;
+
 		enable-active-high;
 		gpio = <&pm660l_gpios 4 0>;
 		vin-supply = <&pm660_s5>;
@@ -66,6 +71,7 @@
 		reg = <0x0>;
 		compatible = "qcom,actuator";
 		qcom,cci-master = <1>;
+
 		gpios = <&tlmm 50 0>;
 		qcom,gpio-vaf = <0>;
 		qcom,gpio-req-tbl-num = <0>;
@@ -124,6 +130,7 @@
 
 	eeprom0: qcom,eeprom@0 {
 		cell-index = <0>;
+
 		reg = <0x0>;
 		compatible = "qcom,eeprom";
 		qcom,eeprom-name = "whyred_s5k5e8_ofilm_i";
@@ -280,6 +287,7 @@
 		cell-index = <1>;
 		reg = <0x1>;
 		compatible = "qcom,eeprom";
+
 		qcom,i2c-freq-mode = <1>;
 		qcom,slave-addr = <0xa8>;
 		qcom,cci-master = <1>;
@@ -288,9 +296,13 @@
 		qcom,page0 = <0 0x0000 2 0x00 1 0>;
 		qcom,poll0 = <0 0x0 2 0x0 1 0>;
 		qcom,mem0 = <7158 0x0000 2 0x0 1 0>;
+
 		cam_vio-supply = <&pm660_l11>;
+
 		cam_vana-supply = <&cam_rear_avdd_gpio_regulator>;
+
 		cam_vdig-supply = <&cam_rear_dvdd_gpio_regulator>;
+
 		qcom,cam-vreg-name = "cam_vio", "cam_vana", "cam_vdig";
 		qcom,cam-vreg-min-voltage = <1780000 0 0>;
 		qcom,cam-vreg-max-voltage = <1950000 0 0>;
@@ -352,6 +364,7 @@ eeprom3: qcom,eeprom@3 {
 				 &cam_sensor_rear2_active>;
 		pinctrl-1 = <&cam_sensor_mclk0_suspend
 				 &cam_sensor_rear2_suspend>;
+
 		gpios = <&tlmm 32 0>,
 			<&tlmm 48 0>,
 			<&tlmm 50 0>;
@@ -377,6 +390,7 @@ eeprom3: qcom,eeprom@3 {
 		clock-names = "cam_src_clk", "cam_clk";
 		qcom,clock-rates = <19200000 0>;
 	};
+
 	eeprom5: qcom,eeprom@5 {
 		cell-index = <5>;
 		reg = <0x5>;
@@ -616,7 +630,9 @@ eeprom3: qcom,eeprom@3 {
 		gpios = <&tlmm 35 0>,
 			<&tlmm 52 0>,
 			<&tlmm 45 0>;
+
 		qcom,gpio-reset = <1>;
+
 		qcom,gpio-vaf = <2>;
 		qcom,gpio-req-tbl-num = <0 1 2>;
 		qcom,gpio-req-tbl-flags = <1 0 0>;
@@ -636,25 +652,29 @@ eeprom3: qcom,eeprom@3 {
 				<&clock_mmss MMSS_CAMSS_MCLK3_CLK>;
 		clock-names = "cam_src_clk", "cam_clk";
 		qcom,clock-rates = <24000000 0>;
-		};
+	};
 
 	qcom,camera@0 {
 		cell-index = <0>;
 		compatible = "qcom,camera";
 		reg = <0x0>;
 		qcom,csiphy-sd-index = <1>;
+
 		qcom,csid-sd-index = <1>;
+
 		qcom,mount-angle = <90>;
 		qcom,eeprom-src = <&eeprom0 &eeprom7>;
 		cam_vio-supply = <&pm660_l11>;
 		cam_vana-supply = <&cam_avdd_gpio_regulator>;
 		cam_vdig-supply = <&cam_rear_dvdd_gpio_regulator>;
+
 		qcom,cam-vreg-name = "cam_vio", "cam_vana", "cam_vdig";
 		qcom,cam-vreg-min-voltage = <1780000 0 0>;
 		qcom,cam-vreg-max-voltage = <1950000 0 0>;
 		qcom,cam-vreg-op-mode = <105000 0 0>;
 		qcom,gpio-no-mux = <0>;
 		pinctrl-names = "cam_default", "cam_suspend";
+
 		pinctrl-0 = <&cam_sensor_mclk3_active
 				 &cam_sensor_front_iris_active>;
 		pinctrl-1 = <&cam_sensor_mclk3_suspend
@@ -706,6 +726,7 @@ eeprom3: qcom,eeprom@3 {
 			<&tlmm 48 0>,
 			<&tlmm 50 0>;
 		qcom,gpio-reset = <1>;
+
 		qcom,gpio-vaf = <2>;
 		qcom,gpio-req-tbl-num = <0 1 2>;
 		qcom,gpio-req-tbl-flags = <1 0 0>;
@@ -716,6 +737,7 @@ eeprom3: qcom,eeprom@3 {
 		qcom,sensor-mode = <0>;
 		qcom,cci-master = <1>;
 		status = "ok";
+
 		clocks = <&clock_mmss MCLK0_CLK_SRC>,
 				<&clock_mmss MMSS_CAMSS_MCLK0_CLK>;
 		clock-names = "cam_src_clk", "cam_clk";
@@ -728,10 +750,12 @@ eeprom3: qcom,eeprom@3 {
 		reg = <0x02>;
 		qcom,csiphy-sd-index = <2>;
 		qcom,csid-sd-index = <2>;
+
 		qcom,mount-angle = <270>;
 		qcom,led-flash-src = <&led_flash1>;
 		qcom,eeprom-src = <&eeprom5 &eeprom9>;
 		cam_vio-supply = <&pm660_l11>;
+
 		cam_vana-supply = <&cam_rear_avdd_gpio_regulator>;
 		qcom,cam-vreg-name = "cam_vio", "cam_vana";
 		qcom,cam-vreg-min-voltage = <1800000 0>;
