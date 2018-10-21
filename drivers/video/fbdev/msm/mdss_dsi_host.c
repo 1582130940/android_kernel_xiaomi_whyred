@@ -23,6 +23,10 @@
 
 #include <linux/msm-bus.h>
 
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+#include <linux/string.h>
+#endif
+
 #include "mdss.h"
 #include "mdss_dsi.h"
 #include "mdss_panel.h"
@@ -1186,6 +1190,12 @@ static int mdss_dsi_read_status(struct mdss_dsi_ctrl_pdata *ctrl)
  * Return: positive value if the panel is in good state, negative value or
  * zero otherwise.
  */
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+extern char g_lcd_id[128];
+extern bool ESD_TE_status;
+#endif
+
 int mdss_dsi_reg_status_check(struct mdss_dsi_ctrl_pdata *ctrl_pdata)
 {
 	int ret = 0;
@@ -1237,6 +1247,13 @@ int mdss_dsi_reg_status_check(struct mdss_dsi_ctrl_pdata *ctrl_pdata)
 			ret = ctrl_pdata->check_read_status(sctrl_pdata);
 	} else {
 		pr_err("%s: Read status register returned error\n", __func__);
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+		if (strstr(g_lcd_id, "nt36672") != NULL) {
+			ESD_TE_status = true;
+		}
+#endif
+
 	}
 
 	mdss_dsi_clk_ctrl(ctrl_pdata, ctrl_pdata->dsi_clk_handle,
