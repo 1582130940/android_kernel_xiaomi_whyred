@@ -26,6 +26,10 @@
 #include <linux/spmi.h>
 #include <linux/syscore_ops.h>
 
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+#include <linux/wakeup_reason.h>
+#endif
+
 /* PMIC Arbiter configuration registers */
 #define PMIC_ARB_VERSION		0x0000
 #define PMIC_ARB_VERSION_V2_MIN		0x20010000
@@ -562,6 +566,10 @@ static void periph_interrupt(struct spmi_pmic_arb *pa, u16 apid, bool show)
 				name = "stray irq";
 			else if (desc->action && desc->action->name)
 				name = desc->action->name;
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+			log_wakeup_reason(irq);
+#endif
 
 			pr_warn("spmi_show_resume_irq: %d triggered [0x%01x, 0x%02x, 0x%01x] %s\n",
 				irq, sid, per, id, name);
