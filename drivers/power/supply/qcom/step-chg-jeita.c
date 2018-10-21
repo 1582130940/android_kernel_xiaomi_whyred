@@ -115,19 +115,60 @@ static struct step_chg_cfg step_chg_config = {
  * range data must be in increasing ranges and shouldn't overlap.
  * Gaps are okay
  */
+#if defined(CONFIG_KERNEL_CUSTOM_WAYNE)
 static struct jeita_fcc_cfg jeita_fcc_config = {
 	.psy_prop	= POWER_SUPPLY_PROP_TEMP,
 	.prop_name	= "BATT_TEMP",
-	.hysteresis	= 10, /* 1degC hysteresis */
+	.hysteresis	= 0, /* 1degC hysteresis */
 	.fcc_cfg	= {
 		/* TEMP_LOW	TEMP_HIGH	FCC */
-		{0,		100,		600000},
-		{101,		200,		2000000},
-		{201,		450,		3000000},
-		{451,		550,		600000},
+		{0,		50,		300000},
+		{51,		150,		900000},
+		{151,		450,		3000000},
+		{451,		600,		1500000},
 	},
 };
+#elif defined(CONFIG_KERNEL_CUSTOM_WHYRED)
+static struct jeita_fcc_cfg jeita_fcc_config = {
+	.psy_prop	= POWER_SUPPLY_PROP_TEMP,
+	.prop_name	= "BATT_TEMP",
+	.hysteresis	= 0, /* 1degC hysteresis */
+	.fcc_cfg	= {
+		/* TEMP_LOW	TEMP_HIGH	FCC */
+		{0,		50,		400000},
+		{51,		150,		1200000},
+		{151,		450,		3000000},
+		{451,		600,		1500000},
+	},
+};
+#endif
 
+//static struct jeita_fcc_cfg jeita_fcc_config = {
+//	.psy_prop	= POWER_SUPPLY_PROP_TEMP,
+//	.prop_name	= "BATT_TEMP",
+//	.hysteresis	= 10, /* 1degC hysteresis */
+//	.fcc_cfg	= {
+//		/* TEMP_LOW	TEMP_HIGH	FCC */
+//		{0,		100,		600000},
+//		{101,		200,		2000000},
+//		{201,		450,		3000000},
+//		{451,		550,		600000},
+//	},
+//};
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+static struct jeita_fv_cfg jeita_fv_config = {
+	.psy_prop	= POWER_SUPPLY_PROP_TEMP,
+	.prop_name	= "BATT_TEMP",
+	.hysteresis	= 0, /* 1degC hysteresis */
+	.fv_cfg		= {
+		/* TEMP_LOW	TEMP_HIGH	FV */
+		{0,		150,		4400000},
+		{151,		450,		4400000},
+		{451,		600,		4200000},
+	},
+};
+#else
 static struct jeita_fv_cfg jeita_fv_config = {
 	.psy_prop	= POWER_SUPPLY_PROP_TEMP,
 	.prop_name	= "BATT_TEMP",
@@ -139,6 +180,7 @@ static struct jeita_fv_cfg jeita_fv_config = {
 		{451,		550,		4200000},
 	},
 };
+#endif
 
 static bool is_batt_available(struct step_chg_info *chip)
 {
@@ -334,7 +376,13 @@ static int handle_jeita(struct step_chg_info *chip)
 	if (!chip->fv_votable)
 		goto update_time;
 
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+	rc = vote(chip->fv_votable, JEITA_VOTER, true, fv_uv);
+	if (rc < 0)
+		pr_err("handle_jeita sw jeita set fv vote err\n");
+#else
 	vote(chip->fv_votable, JEITA_VOTER, true, fv_uv);
+#endif
 
 	pr_debug("%s = %d FCC = %duA FV = %duV\n",
 		step_chg_config.prop_name, pval.intval, fcc_ua, fv_uv);

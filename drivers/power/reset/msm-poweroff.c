@@ -72,7 +72,15 @@ static void scm_disable_sdi(void);
 
 static int in_panic;
 static int dload_type = SCM_DLOAD_FULLDUMP;
-static int download_mode = 1;
+
+#ifdef CONFIG_KERNEL_CUSTOM_WHYRED
+	int download_mode = 0;
+#else
+	int download_mode = 1;
+#endif
+
+//static int download_mode = 1;
+
 static struct kobject dload_kobj;
 static void *dload_mode_addr, *dload_type_addr;
 static bool dload_mode_enabled;
@@ -81,6 +89,10 @@ static void *emergency_dload_mode_addr;
 static void *kaslr_imem_addr;
 #endif
 static bool scm_dload_supported;
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+extern int force_warm_reset;
+#endif
 
 static int dload_set(const char *val, struct kernel_param *kp);
 /* interface for exporting attributes */
@@ -199,6 +211,11 @@ static int dload_set(const char *val, struct kernel_param *kp)
 
 	set_dload_mode(download_mode);
 
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+	if (!download_mode)
+		scm_disable_sdi();
+#endif
+
 	return 0;
 }
 #else
@@ -298,10 +315,27 @@ static void msm_restart_prepare(const char *cmd)
 	if (need_warm_reset) {
 		qpnp_pon_system_pwr_off(PON_POWER_OFF_WARM_RESET);
 	} else {
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+		if (force_warm_reset) {
+			qpnp_pon_system_pwr_off(PON_POWER_OFF_WARM_RESET);
+		} else {
+			qpnp_pon_system_pwr_off(PON_POWER_OFF_HARD_RESET);
+		}
+	}
+#else
 		qpnp_pon_system_pwr_off(PON_POWER_OFF_HARD_RESET);
 	}
+#endif
 
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+	if (in_panic) {
+			   qpnp_pon_system_pwr_off(PON_POWER_OFF_WARM_RESET);
+       } else if (cmd != NULL) {
+#else
 	if (cmd != NULL) {
+#endif
+
 		if (!strncmp(cmd, "bootloader", 10)) {
 			qpnp_pon_set_restart_reason(
 				PON_RESTART_REASON_BOOTLOADER);
@@ -334,7 +368,16 @@ static void msm_restart_prepare(const char *cmd)
 				__raw_writel(0x6f656d00 | (code & 0xff),
 					     restart_reason);
 		} else if (!strncmp(cmd, "edl", 3)) {
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+			if (0)
+				enable_emergency_dload_mode();
+			else
+				pr_info("This command already been disabled");
+#else
 			enable_emergency_dload_mode();
+#endif
+
 		} else {
 			__raw_writel(0x77665501, restart_reason);
 		}
@@ -343,6 +386,7 @@ static void msm_restart_prepare(const char *cmd)
 	flush_cache_all();
 
 	/*outer_flush_all is not supported by 64bit kernel*/
+
 #ifndef CONFIG_ARM64
 	outer_flush_all();
 #endif
