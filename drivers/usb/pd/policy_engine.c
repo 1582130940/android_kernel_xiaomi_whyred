@@ -754,6 +754,11 @@ static void usbpd_set_state(struct usbpd *pd, enum usbpd_state next_state)
 	case PE_SRC_STARTUP:
 		if (pd->current_dr == DR_NONE) {
 			pd->current_dr = DR_DFP;
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+			start_usb_host(pd, true);
+#endif
+
 			/*
 			 * Defer starting USB host mode until PE_SRC_READY or
 			 * when PE_SRC_SEND_CAPABILITIES fails
@@ -1310,7 +1315,8 @@ static void handle_vdm_rx(struct usbpd *pd, struct rx_msg *rx_msg)
 			 * if DisplayPort mode is present or not and limit USB
 			 * to HS-only mode if so.
 			 */
-			start_usb_host(pd, !has_dp);
+
+//			start_usb_host(pd, !has_dp);
 
 			break;
 
@@ -1328,7 +1334,9 @@ static void handle_vdm_rx(struct usbpd *pd, struct rx_msg *rx_msg)
 		switch (cmd) {
 		case USBPD_SVDM_DISCOVER_IDENTITY:
 		case USBPD_SVDM_DISCOVER_SVIDS:
-			start_usb_host(pd, true);
+
+//			start_usb_host(pd, true);
+
 			break;
 		default:
 			break;
@@ -1443,6 +1451,11 @@ static void dr_swap(struct usbpd *pd)
 		pd->current_dr = DR_UFP;
 	} else if (pd->current_dr == DR_UFP) {
 		stop_usb_peripheral(pd);
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+		start_usb_host(pd, true);
+#endif
+
 		pd->current_dr = DR_DFP;
 
 		/* don't start USB host until after SVDM discovery */
@@ -1728,7 +1741,9 @@ static void usbpd_sm(struct work_struct *w)
 
 			if (pd->caps_count == 10 && pd->current_dr == DR_DFP) {
 				/* Likely not PD-capable, start host now */
-				start_usb_host(pd, true);
+
+//				start_usb_host(pd, true);
+
 			} else if (pd->caps_count >= PD_CAPS_COUNT) {
 				usbpd_dbg(&pd->dev, "Src CapsCounter exceeded, disabling PD\n");
 				usbpd_set_state(pd, PE_SRC_DISABLED);
