@@ -27,7 +27,8 @@ DEFINE_MSM_MUTEX(msm_actuator_mutex);
 #endif
 
 #define PARK_LENS_LONG_STEP 7
-#define PARK_LENS_MID_STEP 5
+#define PARK_LENS_MID_STEP 3
+
 #define PARK_LENS_SMALL_STEP 3
 #define MAX_QVALUE 4096
 

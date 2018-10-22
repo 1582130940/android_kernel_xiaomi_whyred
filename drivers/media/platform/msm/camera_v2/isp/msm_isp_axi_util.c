@@ -544,8 +544,16 @@ static void msm_isp_cfg_framedrop_reg(
 	if (!runtime_init_frame_drop)
 		framedrop_period = stream_info->current_framedrop_period;
 
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+	if (MSM_VFE_STREAM_STOP_PERIOD != framedrop_period) {
+		framedrop_pattern = 0x1;
+		if (framedrop_period > 1)
+			framedrop_pattern = framedrop_pattern << (framedrop_period-1);
+	}
+#else
 	if (MSM_VFE_STREAM_STOP_PERIOD != framedrop_period)
 		framedrop_pattern = 0x1;
+#endif
 
 	BUG_ON(0 == framedrop_period);
 	for (i = 0; i < stream_info->num_isp; i++) {
