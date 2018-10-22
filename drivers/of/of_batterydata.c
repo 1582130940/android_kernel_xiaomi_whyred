@@ -372,7 +372,15 @@ struct device_node *of_batterydata_get_best_profile(
 	}
 
 	if (best_node == NULL) {
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+		pr_err("sunxing detect No battery data configed,add default\n");
+		best_node = node;
+		best_id_kohm = batt_ids.kohm[i];
+#else
 		pr_err("No battery data found\n");
+#endif
+
 		return best_node;
 	}
 
