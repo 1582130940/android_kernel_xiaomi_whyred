@@ -10,7 +10,11 @@
  * GNU General Public License for more details.
  */
 
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+#define pr_fmt(fmt) "lct QCOM-BATT: %s: " fmt, __func__
+#else
 #define pr_fmt(fmt) "QCOM-BATT: %s: " fmt, __func__
+#endif
 
 #include <linux/device.h>
 #include <linux/delay.h>
@@ -87,7 +91,7 @@ enum print_reason {
 	PR_PARALLEL	= BIT(0),
 };
 
-static int debug_mask;
+static int debug_mask = 0x0;
 module_param_named(debug_mask, debug_mask, int, S_IRUSR | S_IWUSR);
 
 #define pl_dbg(chip, reason, fmt, ...)				\
@@ -104,6 +108,10 @@ enum {
 	RESTRICT_CHG_ENABLE,
 	RESTRICT_CHG_CURRENT,
 };
+
+#if defined(CONFIG_KERNEL_CUSTOM_WHYRED)
+#define ONLY_PM660_CURRENT_UA 2000000
+#endif
 
 /*******
  * ICL *
@@ -194,6 +202,15 @@ static void split_settled(struct pl_data *chip)
 		}
 
 		pval.intval = total_current_ua - slave_ua;
+
+		#if defined(CONFIG_KERNEL_CUSTOM_WHYRED)
+		pr_err("pl_disable_votable effective main_psy current_ua =%d \n", pval.intval);
+		if (get_effective_result_locked(chip->pl_disable_votable) && (pval.intval > ONLY_PM660_CURRENT_UA)) {
+			pr_err("pl_disable_votable effective main_psy force current_ua =%d to %d \n", pval.intval, ONLY_PM660_CURRENT_UA);
+			pval.intval = ONLY_PM660_CURRENT_UA;
+		}
+		#endif
+
 		/* Set ICL on main charger */
 		rc = power_supply_set_property(chip->main_psy,
 				POWER_SUPPLY_PROP_CURRENT_MAX, &pval);
@@ -332,7 +349,7 @@ static struct class_attribute pl_attributes[] = {
  *  TAPER  *
 ************/
 #define MINIMUM_PARALLEL_FCC_UA		500000
-#define PL_TAPER_WORK_DELAY_MS		500
+#define PL_TAPER_WORK_DELAY_MS		100
 #define TAPER_RESIDUAL_PCT		75
 static void pl_taper_work(struct work_struct *work)
 {
@@ -350,7 +367,7 @@ static void pl_taper_work(struct work_struct *work)
 	pl_dbg(chip, PR_PARALLEL, "entering parallel taper work slave_fcc = %d\n",
 			chip->slave_fcc_ua);
 	if (chip->slave_fcc_ua < MINIMUM_PARALLEL_FCC_UA) {
-		pl_dbg(chip, PR_PARALLEL, "terminating parallel's share lower than 500mA\n");
+		pl_dbg(chip, PR_PARALLEL, "terminating parallel's share lower than 500mA smb1351\n");
 		vote(chip->pl_disable_votable, TAPER_END_VOTER, true, 0);
 		goto done;
 	}
@@ -364,7 +381,7 @@ static void pl_taper_work(struct work_struct *work)
 
 	chip->charge_type = pval.intval;
 	if (pval.intval == POWER_SUPPLY_CHARGE_TYPE_TAPER) {
-		pl_dbg(chip, PR_PARALLEL, "master is taper charging; reducing slave FCC\n");
+		pl_dbg(chip, PR_PARALLEL, "master is taper charging; reducing smb1351 slave FCC\n");
 
 		vote(chip->pl_awake_votable, TAPER_END_VOTER, true, 0);
 		/* Reduce the taper percent by 25 percent */
@@ -528,6 +545,15 @@ static int pl_fcc_vote_callback(struct votable *votable, void *data,
 			return 0;
 		}
 		pval.intval = total_fcc_ua;
+
+		#if defined(CONFIG_KERNEL_CUSTOM_WHYRED)
+		pr_err("pl_disable_votable effective total_fcc_ua =%d \n", total_fcc_ua);
+		if (pval.intval > ONLY_PM660_CURRENT_UA) {
+			pval.intval = ONLY_PM660_CURRENT_UA;
+			pr_err("pl_disable_votable effective total_fcc_ua =%d froce to %d \n", total_fcc_ua, pval.intval);
+		}
+		#endif
+
 		rc = power_supply_set_property(chip->main_psy,
 				POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT_MAX,
 				&pval);
@@ -797,7 +823,12 @@ stepper_exit:
 	}
 }
 
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED)
+#define PARALLEL_FLOAT_VOLTAGE_DELTA_UV 100000
+#else
 #define PARALLEL_FLOAT_VOLTAGE_DELTA_UV 50000
+#endif
+
 static int pl_fv_vote_callback(struct votable *votable, void *data,
 			int fv_uv, const char *client)
 {
@@ -865,11 +896,22 @@ static int usb_icl_vote_callback(struct votable *votable, void *data,
 	 *	unvote USBIN_I_VOTER) the status_changed_work enables
 	 *	USBIN_I_VOTER based on settled current.
 	 */
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+	if (icl_ua <= 1300000) {
+		pr_err("icl_ua <= 1300000 disable parallel charger smb1351 \n");
+		vote(chip->pl_enable_votable_indirect, USBIN_I_VOTER, false, 0);
+	}
+	else
+		schedule_delayed_work(&chip->status_change_work,
+						msecs_to_jiffies(PL_DELAY_MS));
+#else
 	if (icl_ua <= 1400000)
 		vote(chip->pl_enable_votable_indirect, USBIN_I_VOTER, false, 0);
 	else
 		schedule_delayed_work(&chip->status_change_work,
 						msecs_to_jiffies(PL_DELAY_MS));
+#endif
 
 	/* rerun AICL */
 	/* get the settled current */
@@ -1194,6 +1236,15 @@ static void handle_settled_icl_change(struct pl_data *chip)
 	}
 	main_limited = pval.intval;
 
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+	if ((main_limited && (main_settled_ua + chip->pl_settled_ua) < 1300000)
+			|| (main_settled_ua == 0)
+			|| ((total_current_ua >= 0) &&
+				(total_current_ua <= 1300000))) {
+		vote(chip->pl_enable_votable_indirect, USBIN_I_VOTER, false, 0);
+	} else
+		vote(chip->pl_enable_votable_indirect, USBIN_I_VOTER, true, 0);
+#else
 	if ((main_limited && (main_settled_ua + chip->pl_settled_ua) < 1400000)
 			|| (main_settled_ua == 0)
 			|| ((total_current_ua >= 0) &&
@@ -1201,7 +1252,7 @@ static void handle_settled_icl_change(struct pl_data *chip)
 		vote(chip->pl_enable_votable_indirect, USBIN_I_VOTER, false, 0);
 	else
 		vote(chip->pl_enable_votable_indirect, USBIN_I_VOTER, true, 0);
-
+#endif
 
 	if (get_effective_result(chip->pl_disable_votable))
 		return;
