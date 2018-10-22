@@ -1986,6 +1986,10 @@ static int read_gen2_pon_off_reason(struct qpnp_pon *pon, u16 *reason,
 	return 0;
 }
 
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+extern int force_warm_reset;
+#endif
+
 static int qpnp_pon_probe(struct platform_device *pdev)
 {
 	struct qpnp_pon *pon;
@@ -2358,6 +2362,13 @@ static int qpnp_pon_probe(struct platform_device *pdev)
 	/* config whether store the hard reset reason */
 	pon->store_hard_reset_reason = of_property_read_bool(pdev->dev.of_node,
 					"qcom,store-hard-reset-reason");
+
+#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+	if (force_warm_reset) {
+		qpnp_pon_system_pwr_off(PON_POWER_OFF_WARM_RESET);
+		pr_err("qpnp_pon_probe force  Set to warm reset \n");
+	}
+#endif
 
 	qpnp_pon_debugfs_init(pdev);
 	return 0;
