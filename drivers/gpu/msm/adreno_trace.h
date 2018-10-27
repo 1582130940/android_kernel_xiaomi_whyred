@@ -371,83 +371,83 @@ TRACE_EVENT(adreno_sp_tp,
 /*
  * Tracepoint for a3xx irq. Includes status info
  */
-TRACE_EVENT(kgsl_a3xx_irq_status,
+//TRACE_EVENT(kgsl_a3xx_irq_status,
 
-	TP_PROTO(struct adreno_device *adreno_dev, unsigned int status),
+//	TP_PROTO(struct adreno_device *adreno_dev, unsigned int status),
 
-	TP_ARGS(adreno_dev, status),
+//	TP_ARGS(adreno_dev, status),
 
-	TP_STRUCT__entry(
-		__string(device_name, adreno_dev->dev.name)
-		__field(unsigned int, status)
-	),
+//	TP_STRUCT__entry(
+//		__string(device_name, adreno_dev->dev.name)
+//		__field(unsigned int, status)
+//	),
 
-	TP_fast_assign(
-		__assign_str(device_name, adreno_dev->dev.name);
-		__entry->status = status;
-	),
+//	TP_fast_assign(
+//		__assign_str(device_name, adreno_dev->dev.name);
+//		__entry->status = status;
+//	),
 
-	TP_printk(
-		"d_name=%s status=%s",
-		__get_str(device_name),
-		__entry->status ? __print_flags(__entry->status, "|",
-			A3XX_IRQ_FLAGS) : "None"
-	)
-);
+//	TP_printk(
+//		"d_name=%s status=%s",
+//		__get_str(device_name),
+//		__entry->status ? __print_flags(__entry->status, "|",
+//			A3XX_IRQ_FLAGS) : "None"
+//	)
+//);
 
 /*
  * Tracepoint for a4xx irq. Includes status info
  */
-TRACE_EVENT(kgsl_a4xx_irq_status,
+//TRACE_EVENT(kgsl_a4xx_irq_status,
 
-	TP_PROTO(struct adreno_device *adreno_dev, unsigned int status),
+//	TP_PROTO(struct adreno_device *adreno_dev, unsigned int status),
 
-	TP_ARGS(adreno_dev, status),
+//	TP_ARGS(adreno_dev, status),
 
-	TP_STRUCT__entry(
-		__string(device_name, adreno_dev->dev.name)
-		__field(unsigned int, status)
-	),
+//	TP_STRUCT__entry(
+//		__string(device_name, adreno_dev->dev.name)
+//		__field(unsigned int, status)
+//	),
 
-	TP_fast_assign(
-		__assign_str(device_name, adreno_dev->dev.name);
-		__entry->status = status;
-	),
+//	TP_fast_assign(
+//		__assign_str(device_name, adreno_dev->dev.name);
+//		__entry->status = status;
+//	),
 
-	TP_printk(
-		"d_name=%s status=%s",
-		__get_str(device_name),
-		__entry->status ? __print_flags(__entry->status, "|",
-			A4XX_IRQ_FLAGS) : "None"
-	)
-);
+//	TP_printk(
+//		"d_name=%s status=%s",
+//		__get_str(device_name),
+//		__entry->status ? __print_flags(__entry->status, "|",
+//			A4XX_IRQ_FLAGS) : "None"
+//	)
+//);
 
 /*
  * Tracepoint for a5xx irq. Includes status info
  */
-TRACE_EVENT(kgsl_a5xx_irq_status,
+//TRACE_EVENT(kgsl_a5xx_irq_status,
 
-	TP_PROTO(struct adreno_device *adreno_dev, unsigned int status),
+//	TP_PROTO(struct adreno_device *adreno_dev, unsigned int status),
 
-	TP_ARGS(adreno_dev, status),
+//	TP_ARGS(adreno_dev, status),
 
-	TP_STRUCT__entry(
-		__string(device_name, adreno_dev->dev.name)
-		__field(unsigned int, status)
-	),
+//	TP_STRUCT__entry(
+//		__string(device_name, adreno_dev->dev.name)
+//		__field(unsigned int, status)
+//	),
 
-	TP_fast_assign(
-		__assign_str(device_name, adreno_dev->dev.name);
-		__entry->status = status;
-	),
+//	TP_fast_assign(
+//		__assign_str(device_name, adreno_dev->dev.name);
+//		__entry->status = status;
+//	),
 
-	TP_printk(
-		"d_name=%s status=%s",
-		__get_str(device_name),
-		__entry->status ? __print_flags(__entry->status, "|",
-			A5XX_IRQ_FLAGS) : "None"
-	)
-);
+//	TP_printk(
+//		"d_name=%s status=%s",
+//		__get_str(device_name),
+//		__entry->status ? __print_flags(__entry->status, "|",
+//			A5XX_IRQ_FLAGS) : "None"
+//	)
+//);
 
 DECLARE_EVENT_CLASS(adreno_hw_preempt_template,
 	TP_PROTO(struct adreno_ringbuffer *cur_rb,
