@@ -12,6 +12,7 @@
 
 &mdss_mdp {
 	dsi_nt36672_huaxing_fhd_video: qcom,mdss_dsi_nt36672_huaxing_fhd_video {
+		qcom,mdss-brightness-max-level = <4095>;
 		qcom,mdss-dsi-panel-name = "huaxing nt36672 fhd video mode dsi panel";
 		qcom,mdss-dsi-panel-controller = <&mdss_dsi0>;
 		qcom,mdss-dsi-panel-type = "dsi_video_mode";
