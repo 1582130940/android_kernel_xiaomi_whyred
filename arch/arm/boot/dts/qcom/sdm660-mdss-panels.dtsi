@@ -205,7 +205,7 @@
 		25 1f 09 0a 06 03 04 a0
 		25 1f 08 0a 06 03 04 a0];
 	qcom,mdss-dsi-min-refresh-rate = <48>;
-	qcom,mdss-dsi-max-refresh-rate = <60>;
+	qcom,mdss-dsi-max-refresh-rate = <61>;
 };
 
 &dsi_nt36672_tianma_fhd_video {
@@ -215,7 +215,7 @@
 		25 1f 09 0a 06 03 04 a0
 		25 1e 08 0a 06 03 04 a0];
 	qcom,mdss-dsi-min-refresh-rate = <48>;
-	qcom,mdss-dsi-max-refresh-rate = <60>;
+	qcom,mdss-dsi-max-refresh-rate = <61>;
 };
 
 &dsi_nt36672_jdi_fhd_video {
@@ -225,7 +225,7 @@
 		25 1f 09 0a 06 03 04 a0
 		25 1e 08 0a 06 03 04 a0];
 	qcom,mdss-dsi-min-refresh-rate = <48>;
-	qcom,mdss-dsi-max-refresh-rate = <60>;
+	qcom,mdss-dsi-max-refresh-rate = <61>;
 };
 
 &dsi_nt36672_huaxing_fhd_video {
@@ -235,7 +235,7 @@
 		25 1f 09 0a 06 03 04 a0
 		25 1e 08 0a 06 03 04 a0];
 	qcom,mdss-dsi-min-refresh-rate = <48>;
-	qcom,mdss-dsi-max-refresh-rate = <60>;
+	qcom,mdss-dsi-max-refresh-rate = <61>;
 };
 
 &dsi_td4310_shenchao_fhd_video {
@@ -245,7 +245,7 @@
 		25 1f 09 0a 06 03 04 a0
 		25 1e 08 0a 06 03 04 a0];
 	qcom,mdss-dsi-min-refresh-rate = <48>;
-	qcom,mdss-dsi-max-refresh-rate = <60>;
+	qcom,mdss-dsi-max-refresh-rate = <61>;
 };
 
 &dsi_nt35597_truly_dsc_video {
