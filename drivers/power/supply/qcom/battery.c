@@ -110,7 +110,7 @@ enum {
 };
 
 #if defined(CONFIG_KERNEL_CUSTOM_WHYRED)
-#define ONLY_PM660_CURRENT_UA 2000000
+#define ONLY_PM660_CURRENT_UA 3000000
 #endif
 
 /*******
