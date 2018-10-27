@@ -43,22 +43,22 @@
  * Enable/disable zcache (disabled by default)
  */
 static bool zcache_enabled __read_mostly;
-module_param_named(enabled, zcache_enabled, bool, 0);
+module_param_named(enabled, zcache_enabled, bool, 0644);
 
 /*
  * Compressor to be used by zcache
  */
-#define ZCACHE_COMPRESSOR_DEFAULT "lzo"
+#define ZCACHE_COMPRESSOR_DEFAULT "lz4"
 static char *zcache_compressor = ZCACHE_COMPRESSOR_DEFAULT;
 module_param_named(compressor, zcache_compressor, charp, 0);
 
 /*
  * The maximum percentage of memory that the compressed pool can occupy.
  */
-static unsigned int zcache_max_pool_percent = 10;
+static unsigned int zcache_max_pool_percent = 25;
 module_param_named(max_pool_percent, zcache_max_pool_percent, uint, 0644);
 
-static unsigned int zcache_clear_percent = 4;
+static unsigned int zcache_clear_percent = 6;
 module_param_named(clear_percent, zcache_clear_percent, uint, 0644);
 /*
  * zcache statistics
