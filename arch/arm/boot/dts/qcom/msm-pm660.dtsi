@@ -588,7 +588,10 @@
 			qcom,fg-cutoff-voltage = <3400>;
 			qcom,fg-chg-term-current = <200>;
 			qcom,fg-sys-term-current = <300>;
-			qcom,fg-recharge-voltage = <4320>;
+
+			qcom,fg-recharge-voltage = <4300>;
+
+//			qcom,fg-recharge-voltage = <4320>;
 
 			qcom,fg-esr-timer-awake = <96 96>;
 			qcom,fg-esr-timer-asleep = <256 256>;
@@ -684,7 +687,7 @@
 			qcom,actuator-type = "lra";
 			qcom,play-mode = "direct";
 
-			qcom,vmax-mv = <3000>;
+			qcom,vmax-mv = <2784>;
 
 //			qcom,vmax-mv = <3200>;
 
