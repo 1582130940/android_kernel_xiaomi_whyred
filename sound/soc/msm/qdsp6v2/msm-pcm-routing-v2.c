@@ -3542,7 +3542,7 @@ static int msm_native_mode_put(struct snd_kcontrol *kcontrol,
 	pr_debug("%s: msm_native_mode = %d ucontrol value %ld\n",
 		__func__, msm_native_mode,
 		ucontrol->value.integer.value[0]);
-	adm_set_native_mode(msm_native_mode);
+//	adm_set_native_mode(msm_native_mode);
 	return 0;
 }
 
