@@ -2711,7 +2711,8 @@ static void update_history(struct rq *rq, struct task_struct *p,
 	p->ravg.pred_demand = pred_demand;
 
 done:
-	trace_sched_update_history(rq, p, runtime, samples, event);
+//	trace_sched_update_history(rq, p, runtime, samples, event);
+	return;
 }
 
 static u64 add_to_task_demand(struct rq *rq, struct task_struct *p, u64 delta)
