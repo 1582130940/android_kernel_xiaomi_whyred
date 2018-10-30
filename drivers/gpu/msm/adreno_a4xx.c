@@ -393,7 +393,7 @@ static void a4xx_enable_pc(struct adreno_device *adreno_dev)
 
 	kgsl_regwrite(KGSL_DEVICE(adreno_dev), A4XX_CP_POWER_COLLAPSE_CNTL,
 		0x00400010);
-	trace_adreno_sp_tp((unsigned long) __builtin_return_address(0));
+//	trace_adreno_sp_tp((unsigned long) __builtin_return_address(0));
 };
 
 /*
@@ -1685,10 +1685,10 @@ static void a4xx_preempt_callback(struct adreno_device *adreno_dev, int bit)
 	if (atomic_read(&adreno_dev->preempt.state) != ADRENO_PREEMPT_TRIGGERED)
 		return;
 
-	trace_adreno_hw_preempt_trig_to_comp_int(adreno_dev->cur_rb,
-			      adreno_dev->next_rb,
-			      adreno_get_rptr(adreno_dev->cur_rb),
-			      adreno_get_rptr(adreno_dev->next_rb));
+//	trace_adreno_hw_preempt_trig_to_comp_int(adreno_dev->cur_rb,
+//			      adreno_dev->next_rb,
+//			      adreno_get_rptr(adreno_dev->cur_rb),
+//			      adreno_get_rptr(adreno_dev->next_rb));
 
 	adreno_dispatcher_schedule(KGSL_DEVICE(adreno_dev));
 }
