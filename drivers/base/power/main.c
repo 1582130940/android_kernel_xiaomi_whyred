@@ -480,8 +480,8 @@ static int device_resume_noirq(struct device *dev, pm_message_t state, bool asyn
 	char *info = NULL;
 	int error = 0;
 
-//	TRACE_DEVICE(dev);
-//	TRACE_RESUME(0);
+	TRACE_DEVICE(dev);
+	TRACE_RESUME(0);
 
 	if (dev->power.syscore || dev->power.direct_complete)
 		goto Out;
@@ -515,7 +515,7 @@ static int device_resume_noirq(struct device *dev, pm_message_t state, bool asyn
 
  Out:
 	complete_all(&dev->power.completion);
-//	TRACE_RESUME(error);
+	TRACE_RESUME(error);
 	return error;
 }
 
@@ -610,8 +610,8 @@ static int device_resume_early(struct device *dev, pm_message_t state, bool asyn
 	char *info = NULL;
 	int error = 0;
 
-//	TRACE_DEVICE(dev);
-//	TRACE_RESUME(0);
+	TRACE_DEVICE(dev);
+	TRACE_RESUME(0);
 
 	if (dev->power.syscore || dev->power.direct_complete)
 		goto Out;
@@ -644,7 +644,7 @@ static int device_resume_early(struct device *dev, pm_message_t state, bool asyn
 	dev->power.is_late_suspended = false;
 
  Out:
-//	TRACE_RESUME(error);
+	TRACE_RESUME(error);
 
 	pm_runtime_enable(dev);
 	complete_all(&dev->power.completion);
@@ -743,8 +743,8 @@ static int device_resume(struct device *dev, pm_message_t state, bool async)
 	int error = 0;
 	DECLARE_DPM_WATCHDOG_ON_STACK(wd);
 
-//	TRACE_DEVICE(dev);
-//	TRACE_RESUME(0);
+	TRACE_DEVICE(dev);
+	TRACE_RESUME(0);
 
 	if (dev->power.syscore)
 		goto Complete;
@@ -820,7 +820,7 @@ static int device_resume(struct device *dev, pm_message_t state, bool async)
  Complete:
 	complete_all(&dev->power.completion);
 
-//	TRACE_RESUME(error);
+	TRACE_RESUME(error);
 
 	return error;
 }
@@ -1026,8 +1026,8 @@ static int __device_suspend_noirq(struct device *dev, pm_message_t state, bool a
 	char *info = NULL;
 	int error = 0;
 
-//	TRACE_DEVICE(dev);
-//	TRACE_SUSPEND(0);
+	TRACE_DEVICE(dev);
+	TRACE_SUSPEND(0);
 
 	dpm_wait_for_children(dev, async);
 
@@ -1069,7 +1069,7 @@ static int __device_suspend_noirq(struct device *dev, pm_message_t state, bool a
 
 Complete:
 	complete_all(&dev->power.completion);
-//	TRACE_SUSPEND(error);
+	TRACE_SUSPEND(error);
 	return error;
 }
 
@@ -1171,8 +1171,8 @@ static int __device_suspend_late(struct device *dev, pm_message_t state, bool as
 	char *info = NULL;
 	int error = 0;
 
-//	TRACE_DEVICE(dev);
-//	TRACE_SUSPEND(0);
+	TRACE_DEVICE(dev);
+	TRACE_SUSPEND(0);
 
 	__pm_runtime_disable(dev, false);
 
@@ -1215,7 +1215,7 @@ static int __device_suspend_late(struct device *dev, pm_message_t state, bool as
 		async_error = error;
 
 Complete:
-//	TRACE_SUSPEND(error);
+	TRACE_SUSPEND(error);
 	complete_all(&dev->power.completion);
 	return error;
 }
@@ -1358,8 +1358,8 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
 	char suspend_abort[MAX_SUSPEND_ABORT_LEN];
 	DECLARE_DPM_WATCHDOG_ON_STACK(wd);
 
-//	TRACE_DEVICE(dev);
-//	TRACE_SUSPEND(0);
+	TRACE_DEVICE(dev);
+	TRACE_SUSPEND(0);
 
 	dpm_wait_for_children(dev, async);
 
@@ -1473,7 +1473,7 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
 	if (error)
 		async_error = error;
 
-//	TRACE_SUSPEND(error);
+	TRACE_SUSPEND(error);
 	return error;
 }
 
