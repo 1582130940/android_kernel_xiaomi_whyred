@@ -1839,12 +1839,12 @@ static void disable_perf_cl_peak_timer(struct cluster *cl)
 {
 
 	if (del_timer(&cl->perf_cl_peak_mode_exit_timer)) {
-		trace_perf_cl_peak_exit_timer_stop(cpumask_first(cl->cpus),
-			cl->perf_cl_peak_enter_cycles,
-			cl->perf_cl_peak_enter_cycle_cnt,
-			cl->perf_cl_peak_exit_cycles,
-			cl->perf_cl_peak_exit_cycle_cnt,
-			cl->timer_rate, cl->mode);
+//		trace_perf_cl_peak_exit_timer_stop(cpumask_first(cl->cpus),
+//			cl->perf_cl_peak_enter_cycles,
+//			cl->perf_cl_peak_enter_cycle_cnt,
+//			cl->perf_cl_peak_exit_cycles,
+//			cl->perf_cl_peak_exit_cycle_cnt,
+//			cl->timer_rate, cl->mode);
 	}
 
 }
@@ -1858,12 +1858,12 @@ static void start_perf_cl_peak_timer(struct cluster *cl)
 		usecs_to_jiffies(cl->perf_cl_peak_exit_cycles * cl->timer_rate);
 		cl->perf_cl_peak_mode_exit_timer.data = cpumask_first(cl->cpus);
 		add_timer(&cl->perf_cl_peak_mode_exit_timer);
-		trace_perf_cl_peak_exit_timer_start(cpumask_first(cl->cpus),
-			cl->perf_cl_peak_enter_cycles,
-			cl->perf_cl_peak_enter_cycle_cnt,
-			cl->perf_cl_peak_exit_cycles,
-			cl->perf_cl_peak_exit_cycle_cnt,
-			cl->timer_rate, cl->mode);
+//		trace_perf_cl_peak_exit_timer_start(cpumask_first(cl->cpus),
+//			cl->perf_cl_peak_enter_cycles,
+//			cl->perf_cl_peak_enter_cycle_cnt,
+//			cl->perf_cl_peak_exit_cycles,
+//			cl->perf_cl_peak_exit_cycle_cnt,
+//			cl->timer_rate, cl->mode);
 	}
 }
 
@@ -2178,11 +2178,11 @@ static void check_cpu_load(struct cluster *cl, u64 now)
 		pr_debug("msm_perf: Mode changed to %u\n", ret_mode);
 	}
 
-	trace_cpu_mode_detect(cpumask_first(cl->cpus), max_load,
-		cl->single_enter_cycle_cnt, cl->single_exit_cycle_cnt,
-		total_load, cl->multi_enter_cycle_cnt,
-		cl->multi_exit_cycle_cnt, cl->perf_cl_peak_enter_cycle_cnt,
-		cl->perf_cl_peak_exit_cycle_cnt, cl->mode, cpu_cnt);
+//	trace_cpu_mode_detect(cpumask_first(cl->cpus), max_load,
+//		cl->single_enter_cycle_cnt, cl->single_exit_cycle_cnt,
+//		total_load, cl->multi_enter_cycle_cnt,
+//		cl->multi_exit_cycle_cnt, cl->perf_cl_peak_enter_cycle_cnt,
+//		cl->perf_cl_peak_exit_cycle_cnt, cl->mode, cpu_cnt);
 
 	spin_unlock_irqrestore(&cl->mode_lock, flags);
 
