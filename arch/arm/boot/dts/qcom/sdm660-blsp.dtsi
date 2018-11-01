@@ -33,7 +33,6 @@
 	};
 };
 
-
 &soc {
 	i2c_1: i2c@c175000 { /* BLSP1 QUP1 */
 		compatible = "qcom,i2c-msm-v2";
