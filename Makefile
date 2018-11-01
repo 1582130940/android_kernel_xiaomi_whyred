@@ -303,9 +303,9 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS  := -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fivopts -fopenmp -ffast-math -fomit-frame-pointer -std=gnu89
+HOSTCFLAGS  := -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89 -fivopts -fopenmp -ffast-math
 HOSTCXXFLAGS = -O3 -fivopts -fopenmp -ffast-math
-HOSTCXXFLAGS = -funswitch-loops -fpredictive-commoning -fgcse-after-reload -ftree-loop-vectorize -ftree-loop-distribution -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fpeel-loops
+HOSTCXXFLAGS = -funswitch-loops -fpredictive-commoning -fgcse-after-reload -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fpeel-loops -ftree-loop-distribution
 
 ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
 HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
@@ -398,16 +398,15 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
+		   -std=gnu89 $(call cc-option, -fno-PIE) \
 		   -fdiagnostics-color=auto \
 		   -g0 -DNDEBUG -D_FILE_OFFSET_BITS=64 \
 		   -fivopts -fopenmp -ffast-math \
-		   -fmodulo-sched -fmodulo-sched-allow-regmoves \
-		   -std=gnu89 $(call cc-option, -fno-PIE)
+		   -fmodulo-sched -fmodulo-sched-allow-regmoves
 
-# Optimization for ARM Cortex A73/A53
-KBUILD_CFLAGS += $(call cc-option, -march=armv8-a+crypto+crc)
-KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a73)
-KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a73+crypto+crc)
+# Optimization for ARM Cortex A73/Qualcomm Kryo 250/260/280 Gold
+KBUILD_CFLAGS += $(call cc-option, -march=armv8-a+crypto+crc+fp+simd)
+KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a73+crypto+crc++fp+simd)
 KBUILD_CFLAGS += $(call cc-option, -mtune=cortex-a73.cortex-a53)
 
 # Optimization for LP64
