@@ -126,6 +126,4 @@ struct tfa98xx {
 	uint16_t cal_data;
 };
 
-
 #endif /* __TFA98XX_INC__ */
-

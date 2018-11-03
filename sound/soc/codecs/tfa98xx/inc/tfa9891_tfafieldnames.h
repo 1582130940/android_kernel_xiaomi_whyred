@@ -15,7 +15,6 @@
 
 #define TFA9891_I2CVERSION    13
 
-
 #define TFA9891_NAMETABLE static tfaBfName_t Tfa9891DatasheetNames[] = {\
 	{ 0x0, "VDDS"},    /* POR                                               , */\
 	{ 0x10, "PLLS"},    /* PLL                                               , */\
@@ -510,6 +509,5 @@
 	{ 0x8f0f, "production_data6"},    /* (key1 protected)                                  , */\
 	{ 0xffff, "Unknown bitfield enum" }    /* not found */\
 };
-
 
 #endif /* TFA_INC_TFA9891_TFAFIELDNAMES_H_ */

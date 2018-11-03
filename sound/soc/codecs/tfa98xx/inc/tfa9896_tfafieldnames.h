@@ -6,7 +6,6 @@
 #ifndef _TFA9896_TFAFIELDNAMES_H
 #define _TFA9896_TFAFIELDNAMES_H
 
-
 #define TFA9896_I2CVERSION    16
 
 typedef enum nxpTFA9896BfEnumList {

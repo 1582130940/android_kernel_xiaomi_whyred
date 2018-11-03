@@ -58,4 +58,3 @@
 	{ 0x48e1, "ctrl_cs_ttrack[1:0]"},    /* sample & hold track time:                         , */\
 	{ 0xffff, "Unknown bitfield enum" }    /* not found */\
 };
-

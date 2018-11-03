@@ -18,9 +18,6 @@
 #ifndef TFA_SERVICE_H
 #define TFA_SERVICE_H
 
-
-
-
 #ifdef __KERNEL__
 #include <linux/types.h>
 #else
@@ -291,7 +288,6 @@ typedef struct nxpTfaGroup {
 	uint8_t msg_size;
 	uint8_t profileId[64];
 } nxpTfaGroup_t;
-
 
 struct nxpTfa98xx_Memtrack_data {
 	int length;
@@ -758,7 +754,6 @@ enum Tfa98xx_Error tfa98xx_dsp_write_drc(struct tfa_device *tfa, int length, con
  * @param buf character buffer to write
 */
 enum Tfa98xx_Error tfa_dsp_msg(struct tfa_device *tfa, int length, const char *buf);
-
 
 /**
  * The wrapper functions to call the dsp msg, register and memory function for tfa or probus

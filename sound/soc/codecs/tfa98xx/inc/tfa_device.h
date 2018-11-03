@@ -261,8 +261,6 @@ int tfa_dev_mtp_get(struct tfa_device *tfa, enum tfa_mtp item);
  */
 enum tfa_error tfa_dev_mtp_set(struct tfa_device *tfa, enum tfa_mtp item, int value);
 
-
-
 /* tfa2 interrupt support
  *    !!! enum tfa9912_irq !!!*/
 /*
@@ -291,7 +289,4 @@ int tfa_irq_mask(struct tfa_device *tfa);
  */
 int tfa_irq_unmask(struct tfa_device *tfa);
 
-
-
 #endif /* __TFA_DEVICE_H__ */
-

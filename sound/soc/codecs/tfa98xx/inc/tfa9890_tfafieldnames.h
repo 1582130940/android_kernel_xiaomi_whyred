@@ -73,4 +73,3 @@
 	{ 0x8f0f, "production_data6"},    /* (key1 protected)                                  , */\
 	{ 0xffff, "Unknown bitfield enum" }    /* not found */\
 };
-
