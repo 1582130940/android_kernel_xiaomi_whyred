@@ -219,7 +219,6 @@ nxpTfaProfileList_t *tfaContGetDevProfList(nxpTfaContainer_t *cont, int dev_idx,
  */
 int tfa_cnt_get_dev_nprof(struct tfa_device *tfa);
 
-
 /**
  * Get the Nth livedata for the Nth device
  * @param cont pointer to the tfaContainer

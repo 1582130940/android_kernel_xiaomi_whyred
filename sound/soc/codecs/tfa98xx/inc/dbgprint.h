@@ -51,7 +51,6 @@
 #   define MSG(fmt, va...) printk(KERN_INFO PREFIX "%s:%d: "fmt, __func__, __LINE__, ##va)
 #   define _ERRORMSG(fmt, va...) printk(KERN_ERR PREFIX "ERROR %s:%d: "fmt, __func__, __LINE__, ##va)
 
-
 #   define DEBUG0(x...) MSG(x)
 #   define DEBUG1(x...) _DEBUG(1, x)
 #   define DEBUG2(x...) _DEBUG(2, x)
@@ -99,7 +98,6 @@
 #	define PRINT_FILE(file, ...)	fprintf(file, __VA_ARGS__)
 #	define PRINT_ASSERT(e)if ((e)) fprintf(stderr, "PrintAssert:%s (%s:%d) error code:%d\n", __FUNCTION__, __FILE__, __LINE__, e)
 
-
 #elif defined(__CODE_RED)
 #include "app_global.h"
 #   ifdef DEBUG
@@ -111,15 +109,7 @@
 
 #   define MSG(fmt, ...) TB_TRACE_INF(TbTracePfx2("tfa", TB_FUNC, __VA_ARGS__))
 
-
-
-
-
-
-
-
 #   define ERRORMSG(...) TB_TRACE_INF(TbTracePfx2("tfa", TB_FUNC, __VA_ARGS__))
-
 
 #   define DEBUG0(x...) MSG(x)
 #   define DEBUG1(x...) _DEBUG(1, x)
@@ -133,7 +123,6 @@
 #	define PRINT_FILE(file, x...) TB_TRACE_INF(TbTracePfx2("tfa", TB_FUNC, x))
 
 #	define PRINT_ASSERT(e)
-
 
 #else
 #include <stdio.h>
@@ -156,8 +145,6 @@
 #	define PRINT_ERROR(...)	 fprintf(stderr, __VA_ARGS__)
 #	define PRINT_FILE(file, ...)	fprintf(file, __VA_ARGS__)
 #	define PRINT_ASSERT(e)if ((e)) fprintf(stderr, "PrintAssert:%s (%s:%d) error code:%d\n", __FUNCTION__, __FILE__, __LINE__, e)
-
-
 
 #endif	 /* WIN32 */
 

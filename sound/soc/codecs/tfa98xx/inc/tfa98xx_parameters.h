@@ -25,9 +25,6 @@
 #ifndef TFA98XXPARAMETERS_H_
 #define TFA98XXPARAMETERS_H_
 
-
-
-
 #ifdef __KERNEL__
 #include <linux/types.h>
 #else
@@ -50,10 +47,6 @@
 #define TFA_MAX_VSTEPS				(64)
 #define TFA_MAX_VSTEP_MSG_MARKER	(100) /* This marker  is used to indicate if all msgs need to be written to the device */
 #define TFA_MAX_MSGS				(10)
-
-
-
-
 
 #pragma pack (push, 1)
 
@@ -92,9 +85,7 @@ typedef enum nxpTfaSamplerate {
 	fs_count
 } nxpTfaSamplerate_t;
 
-
 static const int nxpTfaSamplerateHz[fs_count] = { 8000, 11025, 12000, 16000, 22050, 24000, 32000, 44100, 48000, 96000 };
-
 
 /*
  * coolflux direct memory access
@@ -210,7 +201,6 @@ typedef struct nxpTfaIntegratorFilter {
 	float  samplingFreq;      /**< sampling frequency in Hertz */
 	float  leakage;           /**< leakage factor; range [0.0 1.0] */
 } nxpTfaIntegratorFilter_t;
-
 
 typedef struct nxpTfaEqFilter {
 	nxpTfaBiquad_t biquad;
@@ -402,7 +392,6 @@ typedef struct nxpTfaVolumeStep1 {
 	float attenuation;
 	uint8_t preset[TFA98XX_PRESET_LENGTH];
 } nxpTfaVolumeStep1_t;
-
 
 #define NXPTFA_VP2_VERSION    '2'
 #define NXPTFA_VP2_SUBVERSION "01"
@@ -628,7 +617,6 @@ typedef struct nxpTfaFileDsc {
 	uint8_t data[];
 } nxpTfaFileDsc_t;
 
-
 /*
  * device descriptor list
  */
@@ -711,7 +699,6 @@ typedef struct nxpTfaNoInit {
 typedef struct nxpTfaFeatures {
 	uint16_t value[3];
 } nxpTfaFeatures_t;
-
 
 /*
  * the container file

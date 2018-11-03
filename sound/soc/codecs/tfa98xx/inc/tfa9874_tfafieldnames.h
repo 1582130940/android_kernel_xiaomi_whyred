@@ -6,7 +6,6 @@
 #ifndef _TFA9874_TFAFIELDNAMES_H
 #define _TFA9874_TFAFIELDNAMES_H
 
-
 #define TFA9874_I2CVERSION    1
 
 typedef enum nxpTfa9874BfEnumList {

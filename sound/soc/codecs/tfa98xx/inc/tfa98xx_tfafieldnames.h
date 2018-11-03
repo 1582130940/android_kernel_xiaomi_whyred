@@ -62,7 +62,6 @@ typedef struct TfaIrqName {
 /* missing 'common' defs break the build */
 #define TFA2_BF_CFSM -1
 
-
 /* MTP access uses registers
  *  defs are derived from corresponding bitfield names as used in the BF macros
  */
@@ -72,7 +71,6 @@ typedef struct TfaIrqName {
 
 /* interrupt enable register uses HW name in TFA2 */
 #define TFA2_BF_INTENVDDS TFA2_BF_IEVDDS
-
 
 /* TFA9891 specific bit field names */
 #define TFA1_BF_SAAMGAIN 0x2202

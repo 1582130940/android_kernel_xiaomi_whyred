@@ -6,11 +6,9 @@
 #ifndef _TFA9872_TFAFIELDNAMES_H
 #define _TFA9872_TFAFIELDNAMES_H
 
-
 #define TFA9872_I2CVERSION_N1A    26
 #define TFA9872_I2CVERSION_N1B    29
 #define TFA9872_I2CVERSION_N1B2   21
-
 
 typedef enum nxpTfa9872BfEnumList {
 	TFA9872_BF_PWDN  = 0x0000,    /*!< Powerdown selection                                */
