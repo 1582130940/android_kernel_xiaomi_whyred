@@ -405,14 +405,15 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fmodulo-sched -fmodulo-sched-allow-regmoves
 
 # Optimization for ARM Cortex A73/Qualcomm Kryo 250/260/280 Gold
-KBUILD_CFLAGS += $(call cc-option, -march=armv8-a+crypto+crc+fp+simd)
-KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a73+crypto+crc++fp+simd)
-KBUILD_CFLAGS += $(call cc-option, -mtune=cortex-a73.cortex-a53)
-
-# Optimization for LP64
 KBUILD_CFLAGS += $(call cc-option, -mabi=lp64)
+KBUILD_CFLAGS += $(call cc-option, -march=armv8.2-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
+KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a76.cortex-a55+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
+KBUILD_CFLAGS += $(call cc-option, -mtune=cortex-a76.cortex-a55)
+
 KBUILD_AFLAGS += $(call cc-option, -mabi=lp64)
-KBUILD_LDFLAGS += $(call cc-option, -maarch64linux)
+KBUILD_AFLAGS += $(call cc-option, -march=armv8.2-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
+KBUILD_AFLAGS += $(call cc-option, -mcpu=cortex-a76.cortex-a55+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
+KBUILD_AFLAGS += $(call cc-option, -mtune=cortex-a76.cortex-a55)
 
 ifeq ($(TARGET_BOARD_TYPE),auto)
 KBUILD_CFLAGS    += -DCONFIG_PLATFORM_AUTO
