@@ -204,7 +204,6 @@ static void split_settled(struct pl_data *chip)
 		pval.intval = total_current_ua - slave_ua;
 
 		#if defined(CONFIG_KERNEL_CUSTOM_WHYRED)
-		pr_err("pl_disable_votable effective main_psy current_ua =%d \n", pval.intval);
 		if (get_effective_result_locked(chip->pl_disable_votable) && (pval.intval > ONLY_PM660_CURRENT_UA)) {
 			pr_err("pl_disable_votable effective main_psy force current_ua =%d to %d \n", pval.intval, ONLY_PM660_CURRENT_UA);
 			pval.intval = ONLY_PM660_CURRENT_UA;
@@ -547,7 +546,6 @@ static int pl_fcc_vote_callback(struct votable *votable, void *data,
 		pval.intval = total_fcc_ua;
 
 		#if defined(CONFIG_KERNEL_CUSTOM_WHYRED)
-		pr_err("pl_disable_votable effective total_fcc_ua =%d \n", total_fcc_ua);
 		if (pval.intval > ONLY_PM660_CURRENT_UA) {
 			pval.intval = ONLY_PM660_CURRENT_UA;
 			pr_err("pl_disable_votable effective total_fcc_ua =%d froce to %d \n", total_fcc_ua, pval.intval);
