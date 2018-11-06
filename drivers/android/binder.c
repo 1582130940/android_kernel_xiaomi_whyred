@@ -118,7 +118,7 @@ BINDER_DEBUG_ENTRY(proc);
 
 #define FORBIDDEN_MMAP_FLAGS                (VM_WRITE)
 
-#define BINDER_SMALL_BUF_SIZE (PAGE_SIZE * 64)
+#define BINDER_SMALL_BUF_SIZE (PAGE_SIZE * 128)
 
 enum {
 	BINDER_DEBUG_USER_ERROR             = 1U << 0,
