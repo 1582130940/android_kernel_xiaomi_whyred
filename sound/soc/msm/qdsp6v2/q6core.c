@@ -311,7 +311,7 @@ struct cal_block_data *cal_utils_get_cal_block_by_key(
 	return NULL;
 }
 
-#if defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
+#if !defined (CONFIG_KERNEL_CUSTOM_WHYRED) || defined (CONFIG_KERNEL_CUSTOM_WAYNE)
 static int q6core_send_get_avcs_fwk_ver_cmd(void)
 {
 	struct apr_hdr avcs_ver_cmd;
@@ -474,8 +474,8 @@ EXPORT_SYMBOL(q6core_get_fwk_version_size);
 
 #else
 int q6core_get_service_version(uint32_t service_id,
-			       struct avcs_fwk_ver_info *ver_info,
-			       size_t size)
+			struct avcs_fwk_ver_info *ver_info,
+			size_t size)
 {
 	return -1;
 }
