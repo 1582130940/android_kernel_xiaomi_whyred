@@ -307,11 +307,6 @@ HOSTCFLAGS  := -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-p
 HOSTCXXFLAGS = -O3 -fivopts -fopenmp -ffast-math
 HOSTCXXFLAGS = -funswitch-loops -fpredictive-commoning -fgcse-after-reload -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fpeel-loops -ftree-loop-distribution
 
-ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
-HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
-		-Wno-missing-field-initializers -fno-delete-null-pointer-checks
-endif
-
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
 
@@ -404,16 +399,18 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fivopts -fopenmp -ffast-math \
 		   -fmodulo-sched -fmodulo-sched-allow-regmoves
 
-# Optimization for ARM Cortex A73/Qualcomm Kryo 250/260/280 Gold
+# Optimization for ARM Cortex A73/A53
 KBUILD_CFLAGS += $(call cc-option, -mabi=lp64)
-KBUILD_CFLAGS += $(call cc-option, -march=armv8.2-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
-KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a76.cortex-a55+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
-KBUILD_CFLAGS += $(call cc-option, -mtune=cortex-a76.cortex-a55)
+KBUILD_CFLAGS += $(call cc-option, -march=armv8-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+rcpc+dotprod+aes+sha2+profile)
+KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a73+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
+KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a53+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
+KBUILD_CFLAGS += $(call cc-option, -mtune=cortex-a73.cortex-a53)
 
 KBUILD_AFLAGS += $(call cc-option, -mabi=lp64)
-KBUILD_AFLAGS += $(call cc-option, -march=armv8.2-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
-KBUILD_AFLAGS += $(call cc-option, -mcpu=cortex-a76.cortex-a55+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+sha3+sm4+profile)
-KBUILD_AFLAGS += $(call cc-option, -mtune=cortex-a76.cortex-a55)
+KBUILD_AFLAGS += $(call cc-option, -march=armv8-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+rcpc+dotprod+aes+sha2+profile)
+KBUILD_AFLAGS += $(call cc-option, -mcpu=cortex-a73+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
+KBUILD_AFLAGS += $(call cc-option, -mcpu=cortex-a53+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
+KBUILD_AFLAGS += $(call cc-option, -mtune=cortex-a73.cortex-a53)
 
 ifeq ($(TARGET_BOARD_TYPE),auto)
 KBUILD_CFLAGS    += -DCONFIG_PLATFORM_AUTO
