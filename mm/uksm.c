@@ -4244,7 +4244,6 @@ static inline void cleanup_vma_slots(void)
 //		return last_ema * 2;
 
 //	return (EMA_ALPHA * curr + (100 - EMA_ALPHA) * last_ema) / 100;
-}
 #define ema(cur, old, weight) \
 	((weight * cur + (100 - weight) * old) / 100)
 
