@@ -394,7 +394,12 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
 		   -std=gnu89 $(call cc-option, -fno-PIE) \
-		   -fdiagnostics-color=auto \
+		   -fdiagnostics-color=always \
+		   -g0 -DNDEBUG -D_FILE_OFFSET_BITS=64 \
+		   -fivopts -fopenmp -ffast-math \
+		   -fmodulo-sched -fmodulo-sched-allow-regmoves
+
+KBUILD_AFLAGS   := -fdiagnostics-color=always \
 		   -g0 -DNDEBUG -D_FILE_OFFSET_BITS=64 \
 		   -fivopts -fopenmp -ffast-math \
 		   -fmodulo-sched -fmodulo-sched-allow-regmoves
