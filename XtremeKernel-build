@@ -13,7 +13,7 @@ rm AnyKernel2/Image.gz-dtb
 rm -rf out
 date="`date +%Y%m%d%H%M%S`"
 export LOCALVERSION=-$date
-zipname="Mi_SDM636_Xtreme™_Kernel-$date.zip"
+zipname="Mi_SDM636_Xtreme_Kernel-$date.zip"
 make O=out mrproper&&make O=out whyred_user_defconfig&&make O=out -j8
 cp -f out/arch/arm64/boot/Image.gz-dtb AnyKernel2
 cp -f out/drivers/staging/qcacld-3.0/wlan.ko AnyKernel2/modules/vendor/lib/modules/qca_cld3/qca_cld3_wlan.ko
