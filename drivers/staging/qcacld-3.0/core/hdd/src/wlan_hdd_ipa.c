@@ -5508,38 +5508,6 @@ int hdd_ipa_set_perf_level(hdd_context_t *hdd_ctx, uint64_t tx_packets,
 	return ret;
 }
 
-#ifdef QCA_CONFIG_SMP
-/**
- * hdd_ipa_get_wake_up_idle() - Get PF_WAKE_UP_IDLE flag in the task structure
- *
- * Get PF_WAKE_UP_IDLE flag in the task structure
- *
- * Return: 1 if PF_WAKE_UP_IDLE flag is set, 0 otherwise
- */
-static uint32_t hdd_ipa_get_wake_up_idle(void)
-{
-	return sched_get_wake_up_idle(current);
-}
-
-/**
- * hdd_ipa_set_wake_up_idle() - Set PF_WAKE_UP_IDLE flag in the task structure
- *
- * Set PF_WAKE_UP_IDLE flag in the task structure
- * This task and any task woken by this will be waken to idle CPU
- *
- * Return: None
- */
-static void hdd_ipa_set_wake_up_idle(bool wake_up_idle)
-{
-	sched_set_wake_up_idle(current, wake_up_idle);
-
-}
-
-static int hdd_ipa_aggregated_rx_ind(qdf_nbuf_t skb)
-{
-	return netif_rx_ni(skb);
-}
-#else /* QCA_CONFIG_SMP */
 static uint32_t hdd_ipa_get_wake_up_idle(void)
 {
 	return 0;
@@ -5575,7 +5543,6 @@ static int hdd_ipa_aggregated_rx_ind(qdf_nbuf_t skb)
 
 	return result;
 }
-#endif /* QCA_CONFIG_SMP */
 
 /**
  * hdd_ipa_send_skb_to_network() - Send skb to kernel
