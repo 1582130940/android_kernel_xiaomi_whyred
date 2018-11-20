@@ -214,6 +214,11 @@
 	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_vfp";
 	qcom,partial-update-enabled = "single_roi";
 	qcom,panel-roi-alignment = <2 2 4 2 1080 2>;
+	qcom,mdss-dsi-panel-hdr-enabled;
+	qcom,mdss-dsi-panel-hdr-color-primaries = <14500 15500 32000
+		17000 15500 30000 8000 3000>;
+	qcom,mdss-dsi-panel-peak-brightness = <4200000>;
+	qcom,mdss-dsi-panel-blackness-level = <3230>;
 };
 
 &dsi_nt36672_tianma_fhd_video {
@@ -232,6 +237,11 @@
 	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_vfp";
 	qcom,partial-update-enabled = "single_roi";
 	qcom,panel-roi-alignment = <2 2 4 2 1080 2>;
+	qcom,mdss-dsi-panel-hdr-enabled;
+	qcom,mdss-dsi-panel-hdr-color-primaries = <14500 15500 32000
+		17000 15500 30000 8000 3000>;
+	qcom,mdss-dsi-panel-peak-brightness = <4200000>;
+	qcom,mdss-dsi-panel-blackness-level = <3230>;
 };
 
 &dsi_nt36672_jdi_fhd_video {
@@ -250,6 +260,11 @@
 	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_vfp";
 	qcom,partial-update-enabled = "single_roi";
 	qcom,panel-roi-alignment = <2 2 4 2 1080 2>;
+	qcom,mdss-dsi-panel-hdr-enabled;
+	qcom,mdss-dsi-panel-hdr-color-primaries = <14500 15500 32000
+		17000 15500 30000 8000 3000>;
+	qcom,mdss-dsi-panel-peak-brightness = <4200000>;
+	qcom,mdss-dsi-panel-blackness-level = <3230>;
 };
 
 &dsi_nt36672_huaxing_fhd_video {
@@ -268,6 +283,11 @@
 	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_vfp";
 	qcom,partial-update-enabled = "single_roi";
 	qcom,panel-roi-alignment = <2 2 4 2 1080 2>;
+	qcom,mdss-dsi-panel-hdr-enabled;
+	qcom,mdss-dsi-panel-hdr-color-primaries = <14500 15500 32000
+		17000 15500 30000 8000 3000>;
+	qcom,mdss-dsi-panel-peak-brightness = <4200000>;
+	qcom,mdss-dsi-panel-blackness-level = <3230>;
 };
 
 &dsi_td4310_shenchao_fhd_video {
@@ -286,6 +306,11 @@
 	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_vfp";
 	qcom,partial-update-enabled = "single_roi";
 	qcom,panel-roi-alignment = <2 2 4 2 1080 2>;
+	qcom,mdss-dsi-panel-hdr-enabled;
+	qcom,mdss-dsi-panel-hdr-color-primaries = <14500 15500 32000
+		17000 15500 30000 8000 3000>;
+	qcom,mdss-dsi-panel-peak-brightness = <4200000>;
+	qcom,mdss-dsi-panel-blackness-level = <3230>;
 };
 
 &dsi_nt35597_truly_dsc_video {
