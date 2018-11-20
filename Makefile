@@ -407,12 +407,14 @@ KBUILD_AFLAGS   := -fdiagnostics-color=always \
 
 # Optimization for ARM Cortex A73/A53
 KBUILD_CFLAGS += $(call cc-option, -mabi=lp64)
+KBUILD_CFLAGS += $(call cc-option, -mfpu=crypto-neon-fp-armv8)
 KBUILD_CFLAGS += $(call cc-option, -march=armv8-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+rcpc+dotprod+aes+sha2+profile)
 KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a73+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
 KBUILD_CFLAGS += $(call cc-option, -mcpu=cortex-a53+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
 KBUILD_CFLAGS += $(call cc-option, -mtune=cortex-a73.cortex-a53)
 
 KBUILD_AFLAGS += $(call cc-option, -mabi=lp64)
+KBUILD_AFLAGS += $(call cc-option, -mfpu=crypto-neon-fp-armv8)
 KBUILD_AFLAGS += $(call cc-option, -march=armv8-a+crc+crypto+fp+simd+sve+lse+rdma+fp16+rcpc+dotprod+aes+sha2+profile)
 KBUILD_AFLAGS += $(call cc-option, -mcpu=cortex-a73+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
 KBUILD_AFLAGS += $(call cc-option, -mcpu=cortex-a53+crc+crypto+fp+simd+sve+lse+rdma+fp16+fp16fml+rcpc+dotprod+aes+sha2+profile)
