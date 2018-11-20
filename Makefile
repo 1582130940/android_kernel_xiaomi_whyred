@@ -306,6 +306,7 @@ HOSTCXX      = g++
 HOSTCFLAGS  := -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89 -fivopts -fopenmp -ffast-math
 HOSTCXXFLAGS = -O3 -fivopts -fopenmp -ffast-math
 HOSTCXXFLAGS = -funswitch-loops -fpredictive-commoning -fgcse-after-reload -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fpeel-loops -ftree-loop-distribution
+HOSTCXXFLAGS = -floop-nest-optimize -fgraphite-identity
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
