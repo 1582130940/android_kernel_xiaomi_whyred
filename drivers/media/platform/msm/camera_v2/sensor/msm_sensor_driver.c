@@ -926,7 +926,7 @@ static uint16_t msm_sensor_get_sensor_id_ovti_13855(struct msm_sensor_ctrl_t *s_
 
 	mdelay(1);
 	for (i = 0; i < 16; i++) {
-	 sensor_i2c_client->i2c_func_tbl->i2c_read(
+	sensor_i2c_client->i2c_func_tbl->i2c_read(
 		sensor_i2c_client, start_add,
 		&sensorid[i], MSM_CAMERA_I2C_WORD_DATA);
 	pr_err("%s:litao read from start_add %x sensrid[%d] %d\n", __func__, start_add, i, sensorid[i]);
@@ -1084,22 +1084,22 @@ static uint16_t msm_sensor_get_sensor_id_samsung_5e8(struct msm_sensor_ctrl_t *s
 		return rc;
 	}
 
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
+	sensor_i2c_client->i2c_func_tbl->i2c_write(
 		sensor_i2c_client, 0x0a00,
 		0x04, MSM_CAMERA_I2C_BYTE_DATA);
 
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
+	sensor_i2c_client->i2c_func_tbl->i2c_write(
 		sensor_i2c_client, 0x0a02,
 		0x00, MSM_CAMERA_I2C_BYTE_DATA);
 
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
+	sensor_i2c_client->i2c_func_tbl->i2c_write(
 		sensor_i2c_client, 0x0a00,
 		0x01, MSM_CAMERA_I2C_BYTE_DATA);
 
 	mdelay(1);
 
 	for (i = 0; i < 16; i++) {
-	 sensor_i2c_client->i2c_func_tbl->i2c_read(
+	sensor_i2c_client->i2c_func_tbl->i2c_read(
 		sensor_i2c_client, start_add,
 		&sensorid[i], MSM_CAMERA_I2C_WORD_DATA);
 	pr_err("%s:litao read from reg_add %x sensorid[%d] %d\n", __func__, start_add, i, sensorid[i]);

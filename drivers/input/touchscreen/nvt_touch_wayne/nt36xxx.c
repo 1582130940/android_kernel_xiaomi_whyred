@@ -323,7 +323,8 @@ int32_t CTP_I2C_WRITE(struct i2c_client *client, uint16_t address, uint8_t *buf,
 
 	while (retries < 5) {
 		ret = i2c_transfer(client->adapter, &msg, 1);
-		if (ret == 1)	break;
+		if (ret == 1)
+			break;
 		retries++;
 	}
 
